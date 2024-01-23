@@ -24,7 +24,7 @@ public class PlayerController : Controller
         base.Update();
     }
 
-    public void ProcessInputs()
+    public override void ProcessInputs()
     {
         if (Input.GetKey(moveForwardKey))
         {

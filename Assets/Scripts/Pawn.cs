@@ -7,9 +7,11 @@ public abstract class Pawn : MonoBehaviour
     public float moveSpeed = 0f;
     public float turnSpeed = 0f;
 
+    public Mover mover;
+
     public virtual void Start()
     {
-        
+        mover = GetComponent<Mover>();
     }
 
     public virtual void Update()
