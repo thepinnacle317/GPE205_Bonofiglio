@@ -4,14 +4,24 @@ using UnityEngine;
 
 public abstract class Pawn : MonoBehaviour
 {
+    // Movement Variables
     public float moveSpeed = 0f;
     public float turnSpeed = 0f;
 
+    // Shooting Variables
+    public GameObject shellPrefab;
+    public float shellForce;
+    public float damageDone;
+    public float shellLifespan;
+
+    // Components
     public Mover mover;
+    public Shooter shooter;
 
     public virtual void Start()
     {
         mover = GetComponent<Mover>();
+        shooter = GetComponent<Shooter>();
     }
 
     public virtual void Update()
@@ -23,4 +33,5 @@ public abstract class Pawn : MonoBehaviour
     public abstract void MoveBackward();
     public abstract void RotateClockwise();
     public abstract void RotateCounterClockwise();
+    public abstract void Shoot();
 }
