@@ -7,6 +7,7 @@ public class TankPawn : Pawn
     public override void Start()
     {
         base.Start();
+        shooter.shotDelay = fireRate;
     }
 
     public override void Update()

@@ -57,13 +57,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8746810975022940990}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20476793, y: -0, z: -0, w: 0.9788106}
-  m_LocalPosition: {x: 0.029999971, y: 1.95, z: -1.7}
+  m_LocalRotation: {x: 0.047944896, y: -0, z: -0, w: 0.99885}
+  m_LocalPosition: {x: 0.029999971, y: 2.336, z: -4.495}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4280181301731734578}
-  m_LocalEulerAnglesHint: {x: 23.632, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 5.496, y: 0, z: 0}
 --- !u!20 &8049465850537983664
 Camera:
   m_ObjectHideFlags: 0
@@ -133,15 +133,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.0268755
+      value: 2.013381
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.13000023
+      value: -0.13000011
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.96
+      value: 8.077243
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -227,7 +227,8 @@ MonoBehaviour:
   shellForce: 1000
   damageDone: 15
   shellLifespan: 2.5
-  mover: {fileID: 5606492934276926826}
+  fireRate: 0.5
+  mover: {fileID: 0}
   shooter: {fileID: 0}
 --- !u!54 &4825704831748977550
 Rigidbody:
@@ -315,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b33bec63152694fb0559e35450f6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shotDelay: 1
   firepointTransform: {fileID: 3170061797753253617}
 --- !u!4 &4280181301731734578 stripped
 Transform:

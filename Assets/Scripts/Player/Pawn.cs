@@ -13,9 +13,12 @@ public abstract class Pawn : MonoBehaviour
     public float shellForce;
     public float damageDone;
     public float shellLifespan;
+    public float fireRate;
 
     // Components
+    [HideInInspector]
     public Mover mover;
+    [HideInInspector]
     public Shooter shooter;
 
     public virtual void Start()
