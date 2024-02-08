@@ -227,7 +227,7 @@ MonoBehaviour:
   shellForce: 1000
   damageDone: 15
   shellLifespan: 2.5
-  fireRate: 0.5
+  fireRate: 1
   mover: {fileID: 0}
   shooter: {fileID: 0}
 --- !u!54 &4825704831748977550
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b33bec63152694fb0559e35450f6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotDelay: 1
+  shotDelay: 0
   firepointTransform: {fileID: 3170061797753253617}
 --- !u!4 &4280181301731734578 stripped
 Transform:

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public  abstract class Shooter : MonoBehaviour
 {
+    [HideInInspector]
     public float shotDelay;
     public abstract void Start();
     public abstract void Update();

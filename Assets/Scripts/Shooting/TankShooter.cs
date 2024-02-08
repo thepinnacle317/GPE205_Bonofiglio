@@ -7,6 +7,7 @@ public class TankShooter : Shooter
     // Transform to spawn tank shells from 
     public Transform firepointTransform;
     private float timeUntilNextShot;
+    private bool bCanFire = false;
 
     public override void Start()
     {
@@ -18,6 +19,8 @@ public class TankShooter : Shooter
         timeUntilNextShot -= Time.deltaTime;
         if (timeUntilNextShot <= 0)
         {
+            // Set the bool that will allow the player to shoot 
+            bCanFire = true;
             Debug.Log("Next Shot Ready");
             timeUntilNextShot = shotDelay;
         }
@@ -25,6 +28,8 @@ public class TankShooter : Shooter
 
     public override void Shoot(GameObject tankhellPrefab, float shellForce, float damageDone, float lifespan)
     {
+        if (bCanFire == true)
+        {
             // Instantiate the tank shell
             GameObject newShell = Instantiate(tankhellPrefab, firepointTransform.position, firepointTransform.rotation)
                 as GameObject;
@@ -52,5 +57,9 @@ public class TankShooter : Shooter
                 rb.AddForce(firepointTransform.forward * shellForce);
             }
             Destroy(newShell, lifespan);
+
+            // If the player has fired then reset the bool so that the timer can reset it.
+            bCanFire = false;
+        }
     }
 }
