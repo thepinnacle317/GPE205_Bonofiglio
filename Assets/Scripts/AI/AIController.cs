@@ -29,10 +29,11 @@ public class AIController : Controller
     private int currentWaypoint = 0;
     //public bool isLooping;
 
+    private Health healthComp;
+
     public override void Start()
     {
-        currentState = AIState.Patrolling;
-        currentPatrolType = PatrolType.Random;
+        healthComp = pawn.GetComponent<Health>();
         base.Start();
     }
 
@@ -40,9 +41,11 @@ public class AIController : Controller
     public override void Update()
     {
         // Used to handle the AI decision making.
-        ProcessInputs();
+        if (pawn != null)
+        {
+            ProcessInputs();
+        }
         base.Update();
-        Debug.Log(currentWaypoint);
     }
 
     public override void ProcessInputs()
@@ -81,11 +84,14 @@ public class AIController : Controller
             case AIState.Attack:
                 // Attack the player
                 DoAttackState();
+                if (healthComp.currentHealth <= 50)
+                {
+                    ChangeState(AIState.Flee);
+                }
                 break;
 
             case AIState.Flee:
                 // Flee to safe position
-                // Add a health condition for fleeing
                 DoFleeState();
                 if (!IsDistanceLessThan(target, fleeDistance))
                 {
@@ -100,6 +106,14 @@ public class AIController : Controller
             case AIState.Patrolling:
                 // Exectute Patrol state
                 DoPatrolState();
+                if (target != null && IsDistanceLessThan(target, 10))
+                {
+                    ChangeState(AIState.Attack);
+                }
+                if (healthComp.currentHealth <= 50)
+                {
+                    ChangeState(AIState.Flee);
+                }
                 break;
         }
     }
@@ -262,5 +276,11 @@ public class AIController : Controller
                 currentWaypoint = Random.Range(0 , waypoints.Length);
             }
         }
+    }
+
+    protected bool IsHit()
+    {
+        // Check if the target was hit.
+        return false;
     }
 }
