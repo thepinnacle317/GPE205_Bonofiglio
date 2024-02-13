@@ -39,4 +39,21 @@ public class TankPawn : Pawn
     {
         shooter.Shoot(shellPrefab, shellForce, damageDone, shellLifespan);
     }
+
+    /* AI Methods */
+
+    public override void RotateTowards(Vector3 targetPosition)
+    {
+        // Get the vector from the enemy pawn to the target
+        Vector3 vectorToTarget = targetPosition - transform.position;
+        // Retrieve the look rotation
+        Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget, Vector3.up);
+        // Rotate to the vector at  the given speed for that frame
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+    }
+
+    public override void Ocillate(float angle)
+    {
+        // Have the enemy tank pawn rotate a set direction amount over time.
+    }
 }
