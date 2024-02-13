@@ -1,20 +1,38 @@
+using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AIController : Controller
 {
-    public enum AIState { Idle, Chase, Attack, Defend, Flee, ReturntoPost, Scan, RangedAttack}
+    /* AI States */
+    public enum AIState { Idle, Chase, Attack, Defend, Flee, ReturntoPost, Scan, RangedAttack, Patrolling}
     public AIState currentState;
     private float lastStateTimeChange;
+
+    /* Targets */
     public GameObject target;
     public Controller targetController;
 
+    /* Fleeing */
+    public float fleeDistance;
+
+    /* Patrolling */
+    public Transform[] waypoints;
+    public enum PatrolType { Looping, Random, SinglePass, None}
+    public PatrolType currentPatrolType;
+    public float waypointsStopDistance;
+    private int currentWaypoint = 0;
+    //public bool isLooping;
+
     public override void Start()
     {
-        currentState = AIState.Idle;
+        currentState = AIState.Patrolling;
+        currentPatrolType = PatrolType.Random;
         base.Start();
     }
 
@@ -24,11 +42,11 @@ public class AIController : Controller
         // Used to handle the AI decision making.
         ProcessInputs();
         base.Update();
+        Debug.Log(currentWaypoint);
     }
 
     public override void ProcessInputs()
     {
-        Debug.Log("Making Decisions!");
         switch (currentState)
         {
             case AIState.Idle:
@@ -39,27 +57,49 @@ public class AIController : Controller
                     ChangeState(AIState.Chase);
                 }
                 break;
+
             case AIState.Scan:
                 // Scan for the player
                 Scan();
                 break;
+
             case AIState.Chase:
                 // Chase the player
                 DoChaseState();
-                // Transition
+                // Transition to Idle State
                 if (!IsDistanceLessThan(target, 10))
+                {
+                   ChangeState(AIState.Idle);
+                }
+                // Transition to Attack State
+                if (target != null && IsDistanceLessThan(target, 10))
+                {
+                    ChangeState(AIState.Attack);
+                }
+                break;
+
+            case AIState.Attack:
+                // Attack the player
+                DoAttackState();
+                break;
+
+            case AIState.Flee:
+                // Flee to safe position
+                // Add a health condition for fleeing
+                DoFleeState();
+                if (!IsDistanceLessThan(target, fleeDistance))
                 {
                     ChangeState(AIState.Idle);
                 }
                 break;
-            case AIState.Attack:
-                // Attack the player
-                break;
-            case AIState.Flee:
-                // Flee to safe position
-                break;
+
             case AIState.ReturntoPost:
                 // Return to spawn location and Idle
+                break;
+
+            case AIState.Patrolling:
+                // Exectute Patrol state
+                DoPatrolState();
                 break;
         }
     }
@@ -110,13 +150,21 @@ public class AIController : Controller
     {
         // Rotate towards the target
         pawn.RotateTowards(targetController.pawn.transform.position);
-        // Move to the the target's transform
+        // Move to the target's transform
+        pawn.MoveForward();
+    }
+
+    public void Chase(Vector3 targetPosition)
+    {
+        // Rotate towards the target
+        pawn.RotateTowards(targetPosition);
+        // Move to the target
         pawn.MoveForward();
     }
 
     public void Chase(Transform targetTransform)
     {
-        //Chase(targetTransform.position);
+        Chase(targetTransform.position);
     }
 
     // Overload for using the target pawn's transform.
@@ -124,5 +172,95 @@ public class AIController : Controller
     {
         // Rotate towards the target
         Chase(targetPawn.transform);
+    }
+
+    public virtual void DoAttackState()
+    {
+        // Chase the player
+        Chase(target);
+        // Shoot at the player
+        Shoot();
+    }
+
+    public void Shoot()
+    {
+        pawn.Shoot();
+    }
+
+    public virtual void DoFleeState()
+    {
+        Flee();
+    }
+
+    protected virtual void Flee()
+    {
+        // Vector to target
+        Vector3 vectorToTarget = target.transform.position - pawn.transform.position;
+        // Get the inverse vector
+        Vector3 vectorAwayFromTarget = -vectorToTarget;
+        // Travel direction and distance
+        Vector3 fleeVector = vectorAwayFromTarget.normalized * fleeDistance;        
+        Chase(pawn.transform.position + fleeVector);
+    }
+
+    public virtual void DoPatrolState()
+    {
+        if (currentPatrolType == PatrolType.SinglePass)
+        {
+            Patrol();
+        }
+        else if (currentPatrolType == PatrolType.Looping)
+        {
+            Patrol();
+            if (currentWaypoint > waypoints.Length - 1)
+            {
+                RestartPatrol();
+            }
+        }
+        else if (currentPatrolType == PatrolType.Random)
+        {
+            RandomPatrol();
+        }
+        else
+        {
+            currentPatrolType = PatrolType.None;
+        }
+        
+    }
+
+    protected void Patrol()
+    {
+        // If there are enough waypoint in the list to move to a waypoint.
+        if (waypoints.Length > currentWaypoint)
+        {
+            // Move to the waypoint
+            Chase(waypoints[currentWaypoint]);
+            // If close enough to the destination waypoint, increment to the next waypoint to travel to.
+            if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) <= waypointsStopDistance)
+            {
+                Debug.Log("Next Waypoint");
+                currentWaypoint++;
+            }
+        }
+    }
+    protected void RestartPatrol()
+    {
+        // Reset the waypoint index so that pawn patrols on a loop until interrupted
+        currentWaypoint = 0;
+    }
+
+    protected void RandomPatrol()
+    {
+        // If there are enough waypoint in the list to move to a waypoint.
+        if (waypoints.Length > currentWaypoint)
+        {
+            // Move to the waypoint
+            Chase(waypoints[currentWaypoint]);
+            // If close enough to the destination waypoint, increment to the next waypoint to travel to.
+            if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) < waypointsStopDistance)
+            {
+                currentWaypoint = Random.Range(0 , waypoints.Length);
+            }
+        }
     }
 }
