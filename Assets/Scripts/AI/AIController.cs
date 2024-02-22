@@ -147,6 +147,7 @@ public class AIController : Controller
         }
     }
 
+    /* Chase Methods */
     protected virtual void DoChaseState()
     {
         Chase(target);
@@ -188,6 +189,7 @@ public class AIController : Controller
         Chase(targetPawn.transform);
     }
 
+    /* Attack Methods */
     public virtual void DoAttackState()
     {
         // Chase the player
@@ -201,6 +203,7 @@ public class AIController : Controller
         pawn.Shoot();
     }
 
+    /* Flee Methods */
     public virtual void DoFleeState()
     {
         Flee();
@@ -217,6 +220,7 @@ public class AIController : Controller
         Chase(pawn.transform.position + fleeVector);
     }
 
+    /* Patrol Methods */
     public virtual void DoPatrolState()
     {
         if (currentPatrolType == PatrolType.SinglePass)
@@ -252,7 +256,6 @@ public class AIController : Controller
             // If close enough to the destination waypoint, increment to the next waypoint to travel to.
             if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) <= waypointsStopDistance)
             {
-                Debug.Log("Next Waypoint");
                 currentWaypoint++;
             }
         }
@@ -282,5 +285,29 @@ public class AIController : Controller
     {
         // Check if the target was hit.
         return false;
+    }
+
+    /* Debug Helper Function */
+    public void TargetPlayerOne()
+    {
+        // Check that there is a valid instance of the gamemanager
+        if (GameManager.instance != null) 
+        {
+            // Check that the array of players exists
+            if (GameManager.instance.players != null)
+            {
+                // Check that there is a valid player
+                if (GameManager.instance.players.Count > 0)
+                {
+                    // Target the gameObject of the pawn of the first player controller in the list
+                    target = GameManager.instance.players[0].pawn.gameObject;
+                }
+            }
+        }
+    }
+
+    protected bool HasTarget()
+    {
+        return (target != null);
     }
 }
