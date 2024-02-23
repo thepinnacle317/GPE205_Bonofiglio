@@ -51,8 +51,14 @@ public class GameManager : MonoBehaviour
         GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation)
             as GameObject;
 
+        newPawnObj.AddComponent<NoiseMaker>();
+
         Controller newController = newPlayerObj.GetComponent<Controller>();
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+
+        newPawn.noiseMaker = newPawnObj.GetComponent<NoiseMaker>();
+        // Sets the noisemaker volume.
+        newPawn.noiseMakerVolume = 5;
 
         // Assigns the pawn to the controller
         newController.pawn = newPawn;

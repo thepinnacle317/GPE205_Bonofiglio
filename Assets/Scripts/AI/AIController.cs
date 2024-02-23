@@ -10,7 +10,7 @@ using UnityEngine;
 public class AIController : Controller
 {
     /* AI States */
-    public enum AIState { Idle, Chase, Attack, Defend, Flee, ReturntoPost, Scan, RangedAttack, Patrolling}
+    public enum AIState { Idle, Chase, Attack, Defend, Flee, ReturntoPost, RangedAttack, Patrolling }
     public AIState currentState;
     private float lastStateTimeChange;
 
@@ -21,13 +21,20 @@ public class AIController : Controller
     /* Fleeing */
     public float fleeDistance;
 
+    /* Hearing */
+    public float hearingDistance;
+
+    /* Sight */
+    public float fieldOfView;
+
     /* Patrolling */
     public Transform[] waypoints;
-    public enum PatrolType { Looping, Random, SinglePass, None}
+    public enum PatrolType { Looping, Random, SinglePass, None }
     public PatrolType currentPatrolType;
     public float waypointsStopDistance;
     private int currentWaypoint = 0;
-    //public bool isLooping;
+
+    public Transform spawnTransform;
 
     private Health healthComp;
 
@@ -37,7 +44,6 @@ public class AIController : Controller
         base.Start();
     }
 
-    
     public override void Update()
     {
         // Used to handle the AI decision making.
@@ -61,18 +67,13 @@ public class AIController : Controller
                 }
                 break;
 
-            case AIState.Scan:
-                // Scan for the player
-                Scan();
-                break;
-
             case AIState.Chase:
                 // Chase the player
                 DoChaseState();
                 // Transition to Idle State
                 if (!IsDistanceLessThan(target, 10))
                 {
-                   ChangeState(AIState.Idle);
+                    ChangeState(AIState.Idle);
                 }
                 // Transition to Attack State
                 if (target != null && IsDistanceLessThan(target, 10))
@@ -93,14 +94,12 @@ public class AIController : Controller
             case AIState.Flee:
                 // Flee to safe position
                 DoFleeState();
-                if (!IsDistanceLessThan(target, fleeDistance))
-                {
-                    ChangeState(AIState.Idle);
-                }
+                ChangeState(AIState.ReturntoPost);
                 break;
 
             case AIState.ReturntoPost:
                 // Return to spawn location and Idle
+                DoReturnToPostState();
                 break;
 
             case AIState.Patrolling:
@@ -115,6 +114,10 @@ public class AIController : Controller
                     ChangeState(AIState.Flee);
                 }
                 break;
+
+            case AIState.Defend:
+                Debug.Log("Defending");
+                break;
         }
     }
 
@@ -124,12 +127,6 @@ public class AIController : Controller
         lastStateTimeChange = Time.fixedTime;
     }
 
-    public void Scan()
-    {
-        // Execute scan logic here. 
-        // This will utilize the Ocillate Method.
-    }
-
     protected void Idle()
     {
         // Do nothing
@@ -137,7 +134,7 @@ public class AIController : Controller
 
     protected bool IsDistanceLessThan(GameObject target, float distance)
     {
-        if (Vector3.Distance (pawn.transform.position, target.transform.position) < distance )
+        if (Vector3.Distance(pawn.transform.position, target.transform.position) < distance)
         {
             return true;
         }
@@ -207,6 +204,7 @@ public class AIController : Controller
     public virtual void DoFleeState()
     {
         Flee();
+        pawn.moveSpeed = 6;
     }
 
     protected virtual void Flee()
@@ -216,7 +214,7 @@ public class AIController : Controller
         // Get the inverse vector
         Vector3 vectorAwayFromTarget = -vectorToTarget;
         // Travel direction and distance
-        Vector3 fleeVector = vectorAwayFromTarget.normalized * fleeDistance;        
+        Vector3 fleeVector = vectorAwayFromTarget.normalized * fleeDistance;
         Chase(pawn.transform.position + fleeVector);
     }
 
@@ -243,7 +241,6 @@ public class AIController : Controller
         {
             currentPatrolType = PatrolType.None;
         }
-        
     }
 
     protected void Patrol()
@@ -276,9 +273,24 @@ public class AIController : Controller
             // If close enough to the destination waypoint, increment to the next waypoint to travel to.
             if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) < waypointsStopDistance)
             {
-                currentWaypoint = Random.Range(0 , waypoints.Length);
+                currentWaypoint = Random.Range(0, waypoints.Length);
             }
         }
+    }
+
+    protected void ReturnToGuardPost()
+    {
+        // Move to guard post location
+        Chase(spawnTransform.position);
+        if (Vector3.Distance(pawn.transform.position, spawnTransform.position) <= 5)
+        {
+            ChangeState(AIState.Defend);
+        }
+    }
+
+    protected void DoReturnToPostState()
+    {
+        ReturnToGuardPost();
     }
 
     protected bool IsHit()
@@ -291,7 +303,7 @@ public class AIController : Controller
     public void TargetPlayerOne()
     {
         // Check that there is a valid instance of the gamemanager
-        if (GameManager.instance != null) 
+        if (GameManager.instance != null)
         {
             // Check that the array of players exists
             if (GameManager.instance.players != null)
@@ -310,4 +322,49 @@ public class AIController : Controller
     {
         return (target != null);
     }
+
+    protected bool CanHear(GameObject target)
+    {
+        // Get the target's NoiseMaker
+        NoiseMaker noiseMaker = target.GetComponent<NoiseMaker>();
+        if (noiseMaker == null)
+        {
+            return false;
+        }
+        // If no noise is being made or within the range
+        if (noiseMaker.volumeDistance <= 0)
+        {
+            return false;
+        }
+        // The target is making noise, add the volumeDistance in the noisemaker to the hearingDistance of this AI
+        float totalDistance = noiseMaker.volumeDistance + hearingDistance;
+        // If the distance between our pawn and target is closer than totalDistance
+        if (Vector3.Distance(pawn.transform.position, target.transform.position) <= totalDistance)
+        {
+            // Can hear the target
+            return true;
+        }
+        else
+        {
+            // We are too far away from the target to hear them
+            return false;
+        }
+    }
+
+    protected bool CanSee(GameObject target)
+    {
+        Vector3 aiToTargetVector = target.transform.position - pawn.transform.position;
+
+        float angleToTarget = Vector3.Angle(aiToTargetVector, pawn.transform.forward);
+
+        if (angleToTarget < fieldOfView)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

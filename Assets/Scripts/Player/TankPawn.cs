@@ -56,4 +56,20 @@ public class TankPawn : Pawn
     {
         // Have the enemy tank pawn rotate a set direction amount over time.
     }
+
+    public override void MakeNoise()
+    {
+        if (noiseMaker != null)
+        {
+            noiseMaker.volumeDistance = noiseMakerVolume;
+        }
+    }
+
+    public override void StopNoise()
+    {
+        if (noiseMaker != null)
+        {
+            noiseMaker.volumeDistance = 0;
+        }
+    }
 }
