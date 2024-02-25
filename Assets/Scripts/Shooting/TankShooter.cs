@@ -21,7 +21,6 @@ public class TankShooter : Shooter
         {
             // Set the bool that will allow the player to shoot 
             bCanFire = true;
-            Debug.Log("Next Shot Ready");
             timeUntilNextShot = shotDelay;
         }
     }

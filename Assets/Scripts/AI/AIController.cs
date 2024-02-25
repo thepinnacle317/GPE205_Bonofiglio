@@ -32,14 +32,21 @@ public class AIController : Controller
     public enum PatrolType { Looping, Random, SinglePass, None }
     public PatrolType currentPatrolType;
     public float waypointsStopDistance;
-    private int currentWaypoint = 0;
+    protected int currentWaypoint = 0;
 
-    public Transform spawnTransform;
+    /* Defend */
+    public float defendTime;
+    protected float timeInDefense;
 
-    private Health healthComp;
+    /* Components */
+    public Transform guardPostTransform;
+    protected Health healthComp;
 
     public override void Start()
     {
+        // Set the time that will be ticked against to the designer variable
+        timeInDefense = defendTime;
+
         healthComp = pawn.GetComponent<Health>();
         base.Start();
     }
@@ -50,6 +57,12 @@ public class AIController : Controller
         if (pawn != null)
         {
             ProcessInputs();
+        }
+
+        // This is broken.  *** Still trying to find the right solution
+        if (currentState == AIState.Defend)
+        {
+            timeInDefense -= Time.time;
         }
         base.Update();
     }
@@ -104,7 +117,7 @@ public class AIController : Controller
 
             case AIState.Patrolling:
                 // Exectute Patrol state
-                DoPatrolState();
+                DoPatrolState(PatrolType.Looping);
                 if (target != null && IsDistanceLessThan(target, 10))
                 {
                     ChangeState(AIState.Attack);
@@ -219,7 +232,7 @@ public class AIController : Controller
     }
 
     /* Patrol Methods */
-    public virtual void DoPatrolState()
+    public virtual void DoPatrolState(PatrolType type)
     {
         if (currentPatrolType == PatrolType.SinglePass)
         {
@@ -280,17 +293,39 @@ public class AIController : Controller
 
     protected void ReturnToGuardPost()
     {
-        // Move to guard post location
-        Chase(spawnTransform.position);
-        if (Vector3.Distance(pawn.transform.position, spawnTransform.position) <= 5)
+        if (guardPostTransform != null)
         {
-            ChangeState(AIState.Defend);
+            // Move to guard post location
+            Chase(guardPostTransform.position);
+            if (Vector3.Distance(pawn.transform.position, guardPostTransform.position) <= 5)
+            {
+                ChangeState(AIState.Defend);
+            }
         }
     }
 
     protected void DoReturnToPostState()
     {
         ReturnToGuardPost();
+    }
+
+    protected void DoDefendState()
+    {
+        IsDefending();
+    }
+
+    protected void IsDefending()
+    {
+        // Make sure that there is a valid target and in defend time
+        if ( target != null && timeInDefense > 0)
+        {
+            // Rotate toward the target and if the target is within engagement range then shoot them
+            pawn.RotateTowards(target.transform.position);
+            if (IsDistanceLessThan(target, 10))
+            {
+                Shoot();
+            }
+        }
     }
 
     protected bool IsHit()
