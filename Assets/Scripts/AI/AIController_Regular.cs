@@ -20,9 +20,6 @@ public class AIController_Regular : AIController
     {
         switch (currentState)
         {
-            case AIState.Idle:
-                
-                break;
             case AIState.Patrolling:
                 DoPatrolState(PatrolType.Random);
                 if (CanSee(target))

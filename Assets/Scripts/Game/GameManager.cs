@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     // List to hold player(s) in the game.
     public List<PlayerController> players;
 
+    // Holds a list of the AIControlles in the scene
+    public List<AIController> aiEnemies;
+
     // Called when the object is first created.
     private void Awake()
     {

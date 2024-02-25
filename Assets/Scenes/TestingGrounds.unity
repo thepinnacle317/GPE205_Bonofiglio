@@ -1540,6 +1540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpawnPoint: {fileID: 1525255077}
   players: []
+  aiEnemies: []
   playerControllerPrefab: {fileID: 7182852624166541173, guid: 4ffd6ee673f4cef45940a14e8208828e, type: 3}
   tankPawnPrefab: {fileID: 3471592086305599112, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
 --- !u!4 &917124484
