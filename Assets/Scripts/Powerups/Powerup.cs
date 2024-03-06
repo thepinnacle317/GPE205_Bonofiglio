@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Powerup : MonoBehaviour
+public abstract class Powerup
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    // Powerup effect duration
+    public float duration;
+    // Check on how the powerup is applied
+    public bool isPermanent;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   public abstract void Apply(PowerupManager target);
+   public abstract void Remove(PowerupManager target);
 }

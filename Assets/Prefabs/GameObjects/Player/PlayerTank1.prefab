@@ -203,6 +203,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5999443978933547253}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3822534029503089151}
   m_SourcePrefab: {fileID: 100100000, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
 --- !u!1 &3471592086305599112 stripped
 GameObject:
@@ -228,8 +231,10 @@ MonoBehaviour:
   damageDone: 15
   shellLifespan: 2.5
   fireRate: 1
+  noiseMakerVolume: 0
   mover: {fileID: 0}
   shooter: {fileID: 0}
+  noiseMaker: {fileID: 0}
 --- !u!54 &4825704831748977550
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -318,6 +323,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotDelay: 0
   firepointTransform: {fileID: 3170061797753253617}
+--- !u!114 &3822534029503089151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3471592086305599112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ed69f17632caf4a9ebd0c6f6536167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4280181301731734578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
