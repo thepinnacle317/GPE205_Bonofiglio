@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Room : MonoBehaviour {
+public class Tile : MonoBehaviour {
 
 	public GameObject doorNorth;
 	public GameObject doorSouth;
