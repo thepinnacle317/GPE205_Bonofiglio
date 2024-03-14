@@ -12,8 +12,6 @@ public class AIController_Scared : AIController
 
     public override void Update()
     {
-        Debug.Log(timeInDefense);
-        Debug.Log(currentState);
         base.Update();
     }
 

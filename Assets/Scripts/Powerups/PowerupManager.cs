@@ -58,12 +58,15 @@ public class PowerupManager : MonoBehaviour
 
     private void ApplyRemovePowerupsQueue()
     {
-        // Remove the powerups that are in the temporary list.
-        foreach(Powerup powerup in removedPowerupQueue)
+        if (powerups.Count > 0) 
         {
-            powerups.Remove(powerup);
+            // Remove the powerups that are in the temporary list.
+            foreach (Powerup powerup in removedPowerupQueue)
+            {
+                powerups.Remove(powerup);
+            }
+            // Reset the powerup queue list
+            removedPowerupQueue.Clear();
         }
-        // Reset the powerup queue list
-        removedPowerupQueue.Clear();
     }
 }

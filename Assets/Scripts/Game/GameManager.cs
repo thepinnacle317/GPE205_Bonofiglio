@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,18 +8,17 @@ public class GameManager : MonoBehaviour
     // Variable to access the game manager.
     public static GameManager instance;
 
-    // Player Spawn Transform
-    public Transform playerSpawnPoint;
-
     // List to hold player(s) in the game.
     public List<PlayerController> players;
 
     // Holds a list of the AIControlles in the scene
     public List<AIController> aiControllers;
 
-    // Pickup spawner control variables
-    public int spawnedPickups;
-    public int maxSpawnedPickups;
+    public GameObject mapGeneratorPrefab;
+
+    private AISpawners aiSpawner;
+
+    private Transform aiSpawnPoint;
 
 
     // Called when the object is first created.
@@ -36,11 +36,14 @@ public class GameManager : MonoBehaviour
             // If there is already an instance than destroy this one.
             Destroy(gameObject);
         }
+        SpawnMapGenerator();
+        mapGeneratorPrefab.GetComponent<MapGeneration>().GenerateMap();
     }
 
     void Start()
     {
        SpawnPlayer();
+        SpawnRandomEnemy();
     }
 
     // Update is called once per frame
@@ -56,7 +59,7 @@ public class GameManager : MonoBehaviour
             as GameObject;
 
         // Spawn the pawn at a random position and assign it to the controller
-        GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation)
+        GameObject newPawnObj = Instantiate(tankPawnPrefab, GetRandomPlayerSpawnpoint().transform.position, GetRandomPlayerSpawnpoint().transform.rotation)
             as GameObject;
 
         newPawnObj.AddComponent<NoiseMaker>();
@@ -75,12 +78,18 @@ public class GameManager : MonoBehaviour
     private void SpawnAITanks()
     {
         // Spawn a random AI Controller
-        GameObject newAIController = Instantiate(GetRandomAIType(), Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject newAIController = Instantiate(GetRandomAIType(), Vector3.zero, Quaternion.identity);
 
         // Spawn the AI Tank at a random spawn point in the map tiles
-        //GameObject newAITank = Instantiate(aiTankPrefab, /* TODO: Get ai spawn points */);
+        GameObject newAITank = Instantiate(aiTankPrefab, aiSpawnPoint.position, aiSpawnPoint.rotation);
 
+        AIController aiController = newAIController.GetComponent<AIController>();
+        Pawn newAIPawn = newAITank.GetComponent<Pawn>();
 
+        // Assign the AI Pawn to the controller
+        aiController.pawn = newAIPawn;
+
+        aiController.target = tankPawnPrefab;
     }
 
     private GameObject GetRandomAIType()
@@ -88,10 +97,30 @@ public class GameManager : MonoBehaviour
         return aiControllerPrefab[Random.Range(0, aiControllerPrefab.Length)];
     }
 
+    private void SpawnRandomEnemy()
+    {
+        AISpawners[] aiSpawners = FindObjectsOfType<AISpawners>();
+        foreach (var aiSpawner in aiSpawners)
+        {
+            aiSpawnPoint = aiSpawner.transform;
+            SpawnAITanks();
+        }
+    }
+
+    private PawnSpawnPoint GetRandomPlayerSpawnpoint()
+    {
+        PawnSpawnPoint[] playerSpawners = FindObjectsOfType<PawnSpawnPoint>();
+        return playerSpawners[Random.Range(0, playerSpawners.Length)];
+    }
+
+    private void SpawnMapGenerator()
+    {
+        GameObject newObj = Instantiate(mapGeneratorPrefab, Vector3.zero, Quaternion.identity);
+    }
+
     /* Prefabs */
     public GameObject playerControllerPrefab;
     public GameObject[] aiControllerPrefab;
     public GameObject aiTankPrefab;
     public GameObject tankPawnPrefab;
-    public GameObject[] playerSpawnPoints;
 }

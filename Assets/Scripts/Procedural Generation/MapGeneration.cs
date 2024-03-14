@@ -14,7 +14,7 @@ public class MapGeneration : MonoBehaviour
     
     void Start()
     {
-        GenerateMap();
+        
     }
 
     void Update()
@@ -94,6 +94,4 @@ public class MapGeneration : MonoBehaviour
             }
         }
     }
-
-
 }

@@ -7,7 +7,7 @@ public class AIController_Regular : AIController
     
     public override void Start()
     {
-        currentState = AIState.Idle;
+        currentState = AIState.Chase;
         base.Start();
     }
 

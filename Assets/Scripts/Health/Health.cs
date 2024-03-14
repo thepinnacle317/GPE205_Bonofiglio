@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
             currentHealth -= damage;
         }
         // Debug Log
-        Debug.Log(source.name + " did " + damage + " damage to " + gameObject.name);
+        Debug.Log(source.name + " took " + damage + " damage.");
 
         if (currentHealth <= 0f)
         {
