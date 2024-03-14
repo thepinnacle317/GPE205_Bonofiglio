@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cb8f306463d4b054d8d51b1e28368115
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273354
+  packageName: Energy Shield Effect v2 with Hit FX and Activation Animation
+  packageVersion: 2.0
+  assetPath: Assets/FXV/ShieldEffect/Demo/Materials/Switch.mat
+  uploadId: 644801

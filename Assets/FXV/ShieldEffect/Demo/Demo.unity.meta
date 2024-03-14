@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 30e28cfe9238cac4cb16906b5a81e571
+timeCreated: 1505229141
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273354
+  packageName: Energy Shield Effect v2 with Hit FX and Activation Animation
+  packageVersion: 2.0
+  assetPath: Assets/FXV/ShieldEffect/Demo/Demo.unity
+  uploadId: 644801

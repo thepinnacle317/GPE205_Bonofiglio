@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 285f8998d7680fc4bae0d384fb08d8c2
+timeCreated: 1515163006
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: -1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273354
+  packageName: Energy Shield Effect v2 with Hit FX and Activation Animation
+  packageVersion: 2.0
+  assetPath: Assets/FXV/ShieldEffect/Demo/Materials/Floor.mat
+  uploadId: 644801

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d3654434f1bec1b4ba4fbdc255357d2b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273354
+  packageName: Energy Shield Effect v2 with Hit FX and Activation Animation
+  packageVersion: 2.0
+  assetPath: Assets/FXV/ShieldEffect/Demo/Scripts/fxvShieldDemoTypeTrigger.cs
+  uploadId: 644801

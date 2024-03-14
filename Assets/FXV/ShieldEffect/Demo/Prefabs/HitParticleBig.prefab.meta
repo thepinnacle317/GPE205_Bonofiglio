@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1b57d9c5e2f825f46a36cecd871bc428
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273354
+  packageName: Energy Shield Effect v2 with Hit FX and Activation Animation
+  packageVersion: 2.0
+  assetPath: Assets/FXV/ShieldEffect/Demo/Prefabs/HitParticleBig.prefab
+  uploadId: 644801

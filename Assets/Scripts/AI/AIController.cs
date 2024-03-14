@@ -48,6 +48,14 @@ public class AIController : Controller
         timeInDefense = defendTime;
 
         healthComp = pawn.GetComponent<Health>();
+
+        if (GameManager.instance != null )
+        {
+            if (GameManager.instance.aiControllers != null)
+            {
+                GameManager.instance.aiControllers.Add(this);
+            }
+        }
         base.Start();
     }
 

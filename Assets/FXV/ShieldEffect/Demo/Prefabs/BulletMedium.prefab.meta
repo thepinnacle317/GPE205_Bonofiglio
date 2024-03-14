@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 46c882458fc78fd41b795f63cbc8c8b9
+timeCreated: 1520072671
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: -1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 273354
+  packageName: Energy Shield Effect v2 with Hit FX and Activation Animation
+  packageVersion: 2.0
+  assetPath: Assets/FXV/ShieldEffect/Demo/Prefabs/BulletMedium.prefab
+  uploadId: 644801

@@ -1,3 +1,4 @@
+using FXV;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,5 +72,10 @@ public class TankPawn : Pawn
         {
             noiseMaker.volumeDistance = 0;
         }
+    }
+
+    public void ShieldVFXStatus()
+    {
+        GetComponent<Shield>().SetShieldActive(true);
     }
 }

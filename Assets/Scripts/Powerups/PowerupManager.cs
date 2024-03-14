@@ -56,7 +56,6 @@ public class PowerupManager : MonoBehaviour
         }
     }
 
-    
     private void ApplyRemovePowerupsQueue()
     {
         // Remove the powerups that are in the temporary list.

@@ -14,7 +14,12 @@ public class GameManager : MonoBehaviour
     public List<PlayerController> players;
 
     // Holds a list of the AIControlles in the scene
-    public List<AIController> aiEnemies;
+    public List<AIController> aiControllers;
+
+    // Pickup spawner control variables
+    public int spawnedPickups;
+    public int maxSpawnedPickups;
+
 
     // Called when the object is first created.
     private void Awake()
@@ -44,13 +49,13 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void SpawnPlayer()
+    private void SpawnPlayer()
     {
         // Spawn the Player Controller at world origin.
         GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity)
             as GameObject;
 
-        // Spawn the pawn and assign it to the controller
+        // Spawn the pawn at a random position and assign it to the controller
         GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation)
             as GameObject;
 
@@ -67,7 +72,26 @@ public class GameManager : MonoBehaviour
         newController.pawn = newPawn;
     }
 
+    private void SpawnAITanks()
+    {
+        // Spawn a random AI Controller
+        GameObject newAIController = Instantiate(GetRandomAIType(), Vector3.zero, Quaternion.identity) as GameObject;
+
+        // Spawn the AI Tank at a random spawn point in the map tiles
+        //GameObject newAITank = Instantiate(aiTankPrefab, /* TODO: Get ai spawn points */);
+
+
+    }
+
+    private GameObject GetRandomAIType()
+    {
+        return aiControllerPrefab[Random.Range(0, aiControllerPrefab.Length)];
+    }
+
     /* Prefabs */
     public GameObject playerControllerPrefab;
+    public GameObject[] aiControllerPrefab;
+    public GameObject aiTankPrefab;
     public GameObject tankPawnPrefab;
+    public GameObject[] playerSpawnPoints;
 }

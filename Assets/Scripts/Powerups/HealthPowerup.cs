@@ -18,6 +18,5 @@ public class HealthPowerup : Powerup
 
     public override void Remove(PowerupManager target)
     {
-        // TODO: Remove Health changes
     }
 }
