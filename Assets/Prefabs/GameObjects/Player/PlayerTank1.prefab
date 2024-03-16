@@ -237,6 +237,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmorShield
       objectReference: {fileID: 0}
+    - target: {fileID: 572022102108993201, guid: 282e80f395e422a4cb112cb27476f6b9, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 572566162572063077, guid: 282e80f395e422a4cb112cb27476f6b9, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -299,6 +307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerTank1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -333,6 +345,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3822534029503089151}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2361982602192590270}
   m_SourcePrefab: {fileID: 100100000, guid: 3b7cf4046d321bc4ebe8ce749ec671c7, type: 3}
 --- !u!1 &3471592086305599112 stripped
 GameObject:
@@ -362,7 +377,7 @@ MonoBehaviour:
   mover: {fileID: 0}
   shooter: {fileID: 0}
   noiseMaker: {fileID: 0}
-  shieldPrefab: {fileID: 572022102108993201, guid: 282e80f395e422a4cb112cb27476f6b9, type: 3}
+  isAIPawn: 0
 --- !u!54 &4825704831748977550
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -463,6 +478,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4ed69f17632caf4a9ebd0c6f6536167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2361982602192590270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3471592086305599112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db29a41f4ec6e44fb54cc3f7b4a2e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &4280181301731734578 stripped

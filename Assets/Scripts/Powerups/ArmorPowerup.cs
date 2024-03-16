@@ -8,17 +8,14 @@ public class ArmorPowerup : Powerup
 {
     public float armorToAdd;
 
-    void Update()
-    {
-
-    }
     public override void Apply(PowerupManager target)
     {
         // Give Armor to the entity that collects this powerup
         Health targetHealth = target.GetComponent<Health>();
         if (targetHealth != null)
         {
-            targetHealth.AddArmor(armorToAdd, target.GetComponent<TankPawn>()); 
+            targetHealth.AddArmor(armorToAdd, target.GetComponent<TankPawn>());
+            Debug.Log("Powerup Added");
         }
     }
 
@@ -30,6 +27,7 @@ public class ArmorPowerup : Powerup
         {
             // Remove all the armor the player has
             targetHealth.RemoveArmor(targetHealth.currentArmor, target.GetComponent<Pawn>());
+            Debug.Log("Powerup Removed");
         }
     }
 }

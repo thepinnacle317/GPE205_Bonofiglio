@@ -49,5 +49,4 @@ public abstract class Pawn : MonoBehaviour
 
     /* AI Methods */
     public abstract void RotateTowards(Vector3 targetPosition);
-    public abstract void Ocillate(float angle);
 }

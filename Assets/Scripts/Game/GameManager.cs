@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,11 +16,20 @@ public class GameManager : MonoBehaviour
     // Holds a list of the AIControlles in the scene
     public List<AIController> aiControllers;
 
+    // Map Generator Prefab variable.  Must be set!!!
     public GameObject mapGeneratorPrefab;
 
-    private AISpawners aiSpawner;
-
+    // AI spawn point transform.  See spawnRandomEnemy.
     private Transform aiSpawnPoint;
+
+    // Map Generation Variables
+    public int gmRows;
+    public int gmCols;
+    public float gmTileWidth = 50f;
+    public float gmTileHeight = 50f;
+    public enum MapType { MapOfTheDay, MapSeed, RandomTimeGeneration };
+    public MapType mapType;
+    public int gmMapSeed;
 
 
     // Called when the object is first created.
@@ -46,7 +57,6 @@ public class GameManager : MonoBehaviour
         SpawnRandomEnemy();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -86,15 +96,17 @@ public class GameManager : MonoBehaviour
         AIController aiController = newAIController.GetComponent<AIController>();
         Pawn newAIPawn = newAITank.GetComponent<Pawn>();
 
+        // Get all the patrol points(Prefab) in the world and then add them to the waypoints array(Transform)
+        PatrolPoint[] patrolPoints = FindObjectsOfType<PatrolPoint>();
+        aiController.patrolPoints = patrolPoints;
+
         // Assign the AI Pawn to the controller
         aiController.pawn = newAIPawn;
-
-        aiController.target = tankPawnPrefab;
     }
 
     private GameObject GetRandomAIType()
     {
-        return aiControllerPrefab[Random.Range(0, aiControllerPrefab.Length)];
+        return aiControllerPrefab[UnityEngine.Random.Range(0, aiControllerPrefab.Length)];
     }
 
     private void SpawnRandomEnemy()
@@ -110,12 +122,21 @@ public class GameManager : MonoBehaviour
     private PawnSpawnPoint GetRandomPlayerSpawnpoint()
     {
         PawnSpawnPoint[] playerSpawners = FindObjectsOfType<PawnSpawnPoint>();
-        return playerSpawners[Random.Range(0, playerSpawners.Length)];
+        return playerSpawners[UnityEngine.Random.Range(0, playerSpawners.Length)];
     }
 
     private void SpawnMapGenerator()
     {
         GameObject newObj = Instantiate(mapGeneratorPrefab, Vector3.zero, Quaternion.identity);
+
+        // Set the variables from the map generator to be controlled from the game manager.
+        mapGeneratorPrefab.GetComponent<MapGeneration>().cols = gmCols;
+        mapGeneratorPrefab.GetComponent<MapGeneration>().rows = gmRows;
+        mapGeneratorPrefab.GetComponent<MapGeneration>().tileHeight = gmTileHeight;
+        mapGeneratorPrefab.GetComponent<MapGeneration>().tileWidth = gmTileWidth;
+        mapGeneratorPrefab.GetComponent<MapGeneration>().mapSeed = gmMapSeed;
+
+        mapGeneratorPrefab.GetComponent<MapGeneration>().currentMapGenerationMethod = (MapGeneration.GenerationMethod)mapType;
     }
 
     /* Prefabs */

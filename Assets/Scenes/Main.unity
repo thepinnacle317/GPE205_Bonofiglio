@@ -172,6 +172,30 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
+      propertyPath: gmCols
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
+      propertyPath: gmRows
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
+      propertyPath: mapType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
+      propertyPath: gmMapSeed
+      value: 315
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
+      propertyPath: gmTileWidth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
+      propertyPath: gmTileHeight
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
       propertyPath: mapGeneratorPrefab
       value: 
       objectReference: {fileID: 1625109209603875552, guid: ebee90339e415f34aae5f53e126229b5, type: 3}
@@ -266,13 +290,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.7084863, y: -0.17493267, z: 0.2921865, w: 0.61812043}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 77.983, y: -251.77701, z: -212.981}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

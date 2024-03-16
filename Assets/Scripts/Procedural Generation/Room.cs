@@ -8,8 +8,4 @@ public class Tile : MonoBehaviour {
 	public GameObject doorEast;
 	public GameObject doorWest;
 
-
-
-
-
 }

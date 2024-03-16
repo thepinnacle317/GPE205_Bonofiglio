@@ -28,7 +28,8 @@ public class AIController : Controller
     public float fieldOfView;
 
     /* Patrolling */
-    public Transform[] waypoints;
+    public PatrolPoint[] patrolPoints;
+
     public enum PatrolType { Looping, Random, SinglePass, None }
     public PatrolType currentPatrolType;
     public float waypointsStopDistance;
@@ -56,6 +57,7 @@ public class AIController : Controller
                 GameManager.instance.aiControllers.Add(this);
             }
         }
+        TargetPlayerOne();
         base.Start();
     }
 
@@ -249,7 +251,7 @@ public class AIController : Controller
         else if (currentPatrolType == PatrolType.Looping)
         {
             Patrol();
-            if (currentWaypoint > waypoints.Length - 1)
+            if (currentWaypoint > patrolPoints.Length - 1)
             {
                 RestartPatrol();
             }
@@ -266,13 +268,13 @@ public class AIController : Controller
 
     protected void Patrol()
     {
-        // If there are enough waypoint in the list to move to a waypoint.
-        if (waypoints.Length > currentWaypoint)
+        // If there are enough patrolPoints in the array to move to a waypoint.
+        if (patrolPoints.Length > currentWaypoint)
         {
-            // Move to the waypoint
-            Chase(waypoints[currentWaypoint]);
-            // If close enough to the destination waypoint, increment to the next waypoint to travel to.
-            if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) <= waypointsStopDistance)
+            // Move to the patrolPoint
+            Chase(patrolPoints[currentWaypoint].transform);
+            // If close enough to the destination patrolPoints, increment to the next patrolPoints to travel to.
+            if (Vector3.Distance(pawn.transform.position, patrolPoints[currentWaypoint].transform.position) <= waypointsStopDistance)
             {
                 currentWaypoint++;
             }
@@ -286,15 +288,16 @@ public class AIController : Controller
 
     protected void RandomPatrol()
     {
-        // If there are enough waypoint in the list to move to a waypoint.
-        if (waypoints.Length > currentWaypoint)
+        // If there are enough patrolPoints in the array to move to a waypoint.
+        if (patrolPoints.Length > currentWaypoint)
         {
-            // Move to the waypoint
-            Chase(waypoints[currentWaypoint]);
-            // If close enough to the destination waypoint, increment to the next waypoint to travel to.
-            if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) < waypointsStopDistance)
+            // Move to the patrolPoint
+            Chase(patrolPoints[currentWaypoint].transform);
+            // If close enough to the destination patrolPoints, increment to the next patrolPoints to travel to.
+            if (Vector3.Distance(pawn.transform.position, patrolPoints[currentWaypoint].transform.position) < waypointsStopDistance)
             {
-                currentWaypoint = Random.Range(0, waypoints.Length);
+                // Choose a random patrolPoint
+                currentWaypoint = Random.Range(0, patrolPoints.Length);
             }
         }
     }
@@ -343,6 +346,7 @@ public class AIController : Controller
     }
 
     /* Debug Helper Function */
+    // TODO:Make a final version that will find the closest player and set them as the target.
     public void TargetPlayerOne()
     {
         // Check that there is a valid instance of the gamemanager
