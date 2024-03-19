@@ -30,15 +30,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4557536993125626, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.067999
+      value: -14.96
       objectReference: {fileID: 0}
     - target: {fileID: 4557536993125626, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.169
+      value: -0.12999916
       objectReference: {fileID: 0}
     - target: {fileID: 4557536993125626, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.8987236
+      value: -12.1
       objectReference: {fileID: 0}
     - target: {fileID: 4557536993125626, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: m_LocalRotation.w
@@ -69,6 +69,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 23370403405725416, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23370403405725416, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 35a7754744727bc459ebc57ac8fe5556, type: 2}
@@ -82,6 +86,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: twoSided
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
@@ -109,12 +117,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
+      propertyPath: followObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: shieldActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: hitColorPower
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
+      propertyPath: hitAffectsColor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: hitDecalTexture
@@ -154,7 +170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: activationAnimationPreview
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: hitShieldAnimation.m_Curve.Array.size
@@ -355,6 +371,10 @@ PrefabInstance:
     - target: {fileID: 114419908011736386, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: hitDecalSizeAnimation.m_Curve.Array.data[0].outWeight
       value: 0.03934284
+      objectReference: {fileID: 0}
+    - target: {fileID: 135981822050132866, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
+      propertyPath: m_Radius
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 135981822050132866, guid: cbfc1de5709fdf04da887197c2c75651, type: 3}
       propertyPath: m_Enabled

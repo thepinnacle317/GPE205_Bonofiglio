@@ -1,7 +1,9 @@
+using FXV;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Health : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-
+      
     }
 
     public void TakeDamage(float damage, Pawn source)
@@ -52,12 +54,17 @@ public class Health : MonoBehaviour
             currentHealth += healAmount;
         }
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
         Debug.Log(target.name + " healed for " + healAmount + ". " + " Current health is now: " + currentHealth);
     }
 
     public void Die(Pawn source)
     {
+        // Add to the players score when they destroy an enemy
+        source.controller.AddToScore(15);
+
         Destroy(gameObject);
+        
         Debug.Log(source.name + " destroyed " + gameObject.name);
     }
 

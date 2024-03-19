@@ -170,7 +170,10 @@ public class AIController : Controller
     /* Chase Methods */
     protected virtual void DoChaseState()
     {
-        Chase(target);
+        if (target != null)
+        {
+            Chase(target);
+        }
     }
     public void Chase(GameObject target)
     {
@@ -213,7 +216,10 @@ public class AIController : Controller
     public virtual void DoAttackState()
     {
         // Chase the player
-        Chase(target);
+        if (target != null)
+        {
+            Chase(target);
+        }
         // Shoot at the player
         Shoot();
     }

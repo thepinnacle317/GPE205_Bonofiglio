@@ -1084,13 +1084,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1296553877848002927, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
+      propertyPath: shieldTransform
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3471592086305599112, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
       propertyPath: m_Name
       value: PlayerTank1
       objectReference: {fileID: 0}
-    - target: {fileID: 3511045187189861695, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 4016344161042628224, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.018
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016344161042628224, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.648
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016344161042628224, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4280181301731734578, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1133,7 +1145,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8994613289479866904, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}

@@ -8,6 +8,8 @@ public abstract class Controller : MonoBehaviour
     // Used to hold the pawn.
     public Pawn pawn;
 
+    public int score;
+
     public virtual void Start()
     {
         
@@ -21,5 +23,10 @@ public abstract class Controller : MonoBehaviour
     public virtual void ProcessInputs()
     {
 
+    }
+
+    public void AddToScore(int amount)
+    {
+        score += amount;
     }
 }

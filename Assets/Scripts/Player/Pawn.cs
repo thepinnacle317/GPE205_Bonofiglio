@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class Pawn : MonoBehaviour
 {
+    /* Controller */
+    public Controller controller;
+
     /* Movement Variables */
     public float moveSpeed = 0f;
     public float turnSpeed = 0f;
@@ -27,11 +30,18 @@ public abstract class Pawn : MonoBehaviour
     [HideInInspector]
     public NoiseMaker noiseMaker;
 
+    /* Armor Shield */
+    public GameObject shieldPrefab;
+    [HideInInspector]
+    public Shield shield;
+    public Transform shieldTransform;
+
     public virtual void Start()
     {
         mover = GetComponent<Mover>();
         shooter = GetComponent<Shooter>();
         noiseMaker = GetComponent<NoiseMaker>();
+        shield = GetComponent<Shield>();
     }
 
     public virtual void Update()

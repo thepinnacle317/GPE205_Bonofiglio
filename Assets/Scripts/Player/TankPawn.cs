@@ -2,17 +2,18 @@ using FXV;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class TankPawn : Pawn
 {
     public bool isAIPawn;
-    
     public RaycastHit hitResults;
+    
 
     public override void Start()
     {
         base.Start();
-        shooter.shotDelay = fireRate;
+        shooter.shotDelay = fireRate; 
     }
 
     public override void Update()
@@ -34,8 +35,7 @@ public class TankPawn : Pawn
             {
                 // Rotate the ai pawn 5 degrees.
                 transform.Rotate(0, 5 * Time.deltaTime, 0 );
-            }
-            
+            } 
         }
     }
 
