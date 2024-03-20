@@ -2,6 +2,7 @@ using FXV;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Pawn : MonoBehaviour
 {
@@ -35,6 +36,13 @@ public abstract class Pawn : MonoBehaviour
     [HideInInspector]
     public Shield shield;
     public Transform shieldTransform;
+
+    /* UI */
+    public Image healthImage;
+    public Image armorImage;
+    public Image damageBoost;
+    public Text livesText;
+    public Text scoreText;
 
     public virtual void Start()
     {

@@ -13,12 +13,12 @@ public abstract class Controller : MonoBehaviour
 
     public virtual void Start()
     {
-        
+        pawn.GetComponent<Health>().UpdateLivesUI(pawn.controller);
     }
 
     public virtual void Update()
     {
-        
+        pawn.scoreText.text = score.ToString();
     }
 
     public virtual void ProcessInputs()

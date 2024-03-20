@@ -1,6 +1,7 @@
 using FXV;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -8,12 +9,13 @@ public class TankPawn : Pawn
 {
     public bool isAIPawn;
     public RaycastHit hitResults;
+
     
 
     public override void Start()
     {
         base.Start();
-        shooter.shotDelay = fireRate; 
+        shooter.shotDelay = fireRate;
     }
 
     public override void Update()

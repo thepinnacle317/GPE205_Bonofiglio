@@ -57,6 +57,7 @@ public class AIController : Controller
                 GameManager.instance.aiControllers.Add(this);
             }
         }
+
         TargetPlayerOne();
         base.Start();
     }
@@ -74,6 +75,8 @@ public class AIController : Controller
         {
             timeInDefense -= Time.time;
         }
+
+        
         base.Update();
     }
 

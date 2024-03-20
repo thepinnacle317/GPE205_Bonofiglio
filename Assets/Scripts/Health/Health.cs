@@ -16,10 +16,17 @@ public class Health : MonoBehaviour
     public float currentArmor;
     public float maxArmor = 150f;
 
-    void Start()
+    public TankPawn tankPawn;
+
+    private void Start()
     {
         currentHealth = maxHealth;
         currentArmor = 0f;
+    }
+
+    private void Update()
+    {
+        
     }
 
     public void TakeDamage(float damage, Pawn attacker, Pawn target)
@@ -33,6 +40,8 @@ public class Health : MonoBehaviour
         else
         {
             currentHealth -= damage;
+
+            UpdateHealthUI(target);
         }
         // Print who took damage and how much
         Debug.Log(target.name + " took " + damage + " damage.");
@@ -50,6 +59,7 @@ public class Health : MonoBehaviour
         if (healAmount > 0f)
         {
             currentHealth += healAmount;
+            UpdateHealthUI(target);
         }
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
@@ -66,7 +76,7 @@ public class Health : MonoBehaviour
             {
                 // Decrement the players lives
                 source.controller.currentLives--;
-
+                
                 // Check to make sure there is a valid GameManager
                 if (GameManager.instance != null)
                 {
@@ -77,12 +87,15 @@ public class Health : MonoBehaviour
                         // Respawn the player if they have enough lives
                         GameManager.instance.RespawnPlayer();
 
+                        // Update the lives in the player UI
+                        UpdateLivesUI(source.controller);
+
                         // Print the players current lives
                         Debug.Log(source.controller.currentLives);
                     }
                 }
             }
-            else
+            if (source.controller.currentLives <= 0)
             {
                 Destroy(gameObject);
                 // Activate Game Over if the player is out of lives.
@@ -100,9 +113,10 @@ public class Health : MonoBehaviour
         if (armorAmount != maxArmor) 
         {
             currentArmor += armorAmount;
+            currentArmor = Mathf.Clamp(currentArmor, 0, maxArmor);
+            UpdateArmorUI(target);
+            Debug.Log(target.name + " gained " + armorAmount + ". " + " Current armor is now: " + currentArmor);
         }
-        currentArmor = Mathf.Clamp(currentArmor, 0, maxArmor);
-        Debug.Log(target.name + " gained " + armorAmount + ". " + " Current armor is now: " + currentArmor);
     }
 
     public void RemoveArmor(float armorAmount, Pawn target)
@@ -111,7 +125,33 @@ public class Health : MonoBehaviour
         {
             currentArmor -= armorAmount;
             currentArmor = Mathf.Clamp(currentArmor, 0, maxArmor);
+            UpdateArmorUI(target);
             Debug.Log(target.name + " had " + armorAmount + " removed. " + " Current armor is now: " + currentArmor);
         }
+    }
+
+    public void UpdateHealthUI(Pawn owningPawn)
+    {
+        Health healthComp = owningPawn.GetComponent<Health>();
+        if (owningPawn.healthImage != null)
+        {
+            owningPawn.healthImage.fillAmount = currentHealth / maxHealth;
+        }
+    }
+
+    public void UpdateArmorUI(Pawn owningPawn)
+    {
+        Health healthComp = owningPawn.GetComponent<Health>();
+        if (owningPawn.healthImage != null)
+        {
+            owningPawn.armorImage.fillAmount = currentArmor / maxArmor;
+        }
+    }
+
+    public void UpdateLivesUI(Controller owningController)
+    {
+        Health healthComp = owningController.pawn.GetComponent<Health>();
+        owningController.pawn.livesText.text = owningController.currentLives.ToString();
+       
     }
 }
