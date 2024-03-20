@@ -15,7 +15,7 @@ public class DamagePowerup : Powerup
         Health targetHealth = target.GetComponent<Health>();
         if (targetHealth != null) 
         {
-            targetHealth.TakeDamage(damageAmount, target.GetComponent<Pawn>());
+            targetHealth.TakeDamage(damageAmount, null,  target.GetComponent<Pawn>());
         }
     }
 

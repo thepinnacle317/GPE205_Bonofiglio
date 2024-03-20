@@ -23,6 +23,7 @@ public class PlayerController : Controller
                 GameManager.instance.players.Add(this);
             }
         }
+        currentLives = maxLives;
 
         // Super
         base.Start();

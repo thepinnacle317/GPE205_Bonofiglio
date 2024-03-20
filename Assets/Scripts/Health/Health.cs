@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEngine.GraphicsBuffer;
 
 public class Health : MonoBehaviour
@@ -21,12 +22,7 @@ public class Health : MonoBehaviour
         currentArmor = 0f;
     }
 
-    void Update()
-    {
-      
-    }
-
-    public void TakeDamage(float damage, Pawn source)
+    public void TakeDamage(float damage, Pawn attacker, Pawn target)
     {
         // Subtract damage amount from the players armor if they have any
         if (currentArmor > 0f) 
@@ -38,12 +34,14 @@ public class Health : MonoBehaviour
         {
             currentHealth -= damage;
         }
-        // Debug Log
-        Debug.Log(source.name + " took " + damage + " damage.");
+        // Print who took damage and how much
+        Debug.Log(target.name + " took " + damage + " damage.");
 
+        // If the pawn is out of health then call die.
         if (currentHealth <= 0f)
         {
-            Die(source);
+            Die(target);
+            attacker.controller.AddToScore(15);
         }
     }
 
@@ -60,12 +58,41 @@ public class Health : MonoBehaviour
 
     public void Die(Pawn source)
     {
-        // Add to the players score when they destroy an enemy
-        source.controller.AddToScore(15);
+        if (source.controller.pawn.GetComponent<TankPawn>().isAIPawn != true)
+        {
+            Debug.Log("Player Pawn has Died");
+            // Subtract a life when the player dies
+            if (source.controller.currentLives > 0)
+            {
+                // Decrement the players lives
+                source.controller.currentLives--;
 
-        Destroy(gameObject);
+                // Check to make sure there is a valid GameManager
+                if (GameManager.instance != null)
+                {
+                    // Are there current players in the game
+                    if (GameManager.instance.players != null)
+                    {
+                        Destroy(gameObject);
+                        // Respawn the player if they have enough lives
+                        GameManager.instance.RespawnPlayer();
+
+                        // Print the players current lives
+                        Debug.Log(source.controller.currentLives);
+                    }
+                }
+            }
+            else
+            {
+                Destroy(gameObject);
+                // Activate Game Over if the player is out of lives.
+                GameManager.instance.ActivateGameOverScreen();
+
+                // TODO: Make a check that both players are out of lives for split screen and solo play separately.
+            }
+        }
         
-        Debug.Log(source.name + " destroyed " + gameObject.name);
+        Destroy(gameObject);
     }
 
     public void AddArmor(float armorAmount,  Pawn target)

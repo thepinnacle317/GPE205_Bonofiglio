@@ -43,7 +43,7 @@ public class TankShooter : Shooter
                 damageOH.damageDone = damageDone;
 
                 // Check for a valid owner of the Hit component
-                damageOH.Owner = GetComponent<Pawn>();
+                damageOH.attacker = GetComponent<Pawn>();
             }
 
             // Retrieve Rigid Body component

@@ -21,7 +21,7 @@ public class PowerupManager : MonoBehaviour
     // LateUpdate is called at the end of a frame
     void LateUpdate()
     {
-        if (powerups.Count != 0) 
+        if (powerups.Count > 0)
         {
             ApplyRemovePowerupsQueue();
         }
@@ -39,11 +39,14 @@ public class PowerupManager : MonoBehaviour
 
     public void Remove(Powerup powerupToRemove)
     {
-        // Remove the powerup
-        powerupToRemove.Remove(this);
+        if (powerupToRemove.isPermanent == false)
+        {
+            // Remove the powerup
+            powerupToRemove.Remove(this);
 
-        // Get ready to remove the powerup
-        removedPowerupQueue.Add(powerupToRemove);
+            // Get ready to remove the powerup
+            removedPowerupQueue.Add(powerupToRemove);
+        }
     }
     
     public void DecrementPowerupTimers()
@@ -62,15 +65,12 @@ public class PowerupManager : MonoBehaviour
 
     private void ApplyRemovePowerupsQueue()
     {
-        if (powerups.Count > 1) 
+        // Remove the powerups that are in the temporary list.
+        foreach (Powerup powerup in removedPowerupQueue)
         {
-            // Remove the powerups that are in the temporary list.
-            foreach (Powerup powerup in removedPowerupQueue)
-            {
-                powerups.Remove(powerup);
-            }
-            // Reset the powerup queue list
-            removedPowerupQueue.Clear();
+            powerups.Remove(powerup);
         }
+        // Reset the powerup queue list
+        removedPowerupQueue.Clear();
     }
 }

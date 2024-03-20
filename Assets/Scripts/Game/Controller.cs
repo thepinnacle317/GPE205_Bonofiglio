@@ -7,7 +7,8 @@ public abstract class Controller : MonoBehaviour
 {
     // Used to hold the pawn.
     public Pawn pawn;
-
+    public int currentLives;
+    public int maxLives = 3;
     public int score;
 
     public virtual void Start()
@@ -28,5 +29,6 @@ public abstract class Controller : MonoBehaviour
     public void AddToScore(int amount)
     {
         score += amount;
+        Debug.Log("Your current score is: " + score);
     }
 }

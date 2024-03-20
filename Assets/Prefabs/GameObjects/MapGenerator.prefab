@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPrefabs:
-  - {fileID: 7765390504912702653, guid: 11889e6880d0c9e40af39811f572735e, type: 3}
+  - {fileID: 5801153607821802128, guid: 2c5c6ad39731b8f499c5e68274b8fe85, type: 3}
   - {fileID: 5924206951365138259, guid: 125bdbb690df05a43b27f6443a59667d, type: 3}
   - {fileID: 508095015165171566, guid: 25a865d75afbfa243b2d158ccf2278a6, type: 3}
   - {fileID: 2210482429592452033, guid: 30881c6549ef2604a92796afaa32dcd7, type: 3}
-  rows: 3
-  cols: 3
+  rows: 2
+  cols: 2
   tileWidth: 50
   tileHeight: 50
   mapSeed: 0
-  currentMapGenerationMethod: 2
+  currentMapGenerationMethod: 0

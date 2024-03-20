@@ -80,20 +80,23 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (players[0])
+        if (players.Count > 0)
         {
-            players[0].score = playerOneScore;
-        }
-        if (players[1])
-        {
-            players[1].score = playerTwoScore;
+            if (players[0])
+            {
+                players[0].score += playerOneScore;
+            }
+            if (players.Count > 1 && players[1])
+            {
+                players[1].score += playerTwoScore;
+            }
         }
     }
 
-    private void SpawnPlayer()
+    public void SpawnPlayer()
     {
         // Spawn the Player Controller at world origin.
-        GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity)
+        GameObject newControllerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity)
             as GameObject;
 
         // Spawn the pawn at a random position and assign it to the controller
@@ -102,7 +105,10 @@ public class GameManager : MonoBehaviour
 
         newPawnObj.AddComponent<NoiseMaker>();
 
-        Controller newController = newPlayerObj.GetComponent<Controller>();
+        // Set the controller component to the controller object.
+        Controller newController = newControllerObj.GetComponent<Controller>();
+
+        // Set the pawn component to the pawn object
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
 
         newPawn.noiseMaker = newPawnObj.GetComponent<NoiseMaker>();
@@ -114,6 +120,32 @@ public class GameManager : MonoBehaviour
 
         // Assigns the Controller to the Pawn
         newPawn.controller = newController;
+    }
+
+    public void RespawnPlayer()
+    {
+        Debug.Log("Respawning player");
+
+        // Spawn the pawn at a random position and assign it to the controller
+        GameObject newPawnObj = Instantiate(tankPawnPrefab, GetRandomPlayerSpawnpoint().transform.position, GetRandomPlayerSpawnpoint().transform.rotation);
+
+        // Set the pawn component to the pawn object
+        Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+
+        // Add the noismaker component to the pawn object
+        newPawnObj.AddComponent<NoiseMaker>();
+
+        // Set the noismaker variable for the pawn to the component just attached.
+        newPawn.noiseMaker = newPawnObj.GetComponent<NoiseMaker>();
+
+        // Sets the noisemaker volume.
+        newPawn.noiseMakerVolume = 5;
+
+        players[0].pawn = newPawn;
+        newPawn.controller = players[0];
+        Debug.Log("Assigning the new player the the existing controller");
+
+        // TODO: Check each controller if the pawn value is null.  If so then set the new pawn to the controller and vice versa.
     }
 
     private void SpawnAITanks()
@@ -133,6 +165,9 @@ public class GameManager : MonoBehaviour
 
         // Assign the AI Pawn to the controller
         aiController.pawn = newAIPawn;
+
+        // Assigns the Controller to the Pawn
+        newAIPawn.controller = aiController;
     }
 
     private GameObject GetRandomAIType()
