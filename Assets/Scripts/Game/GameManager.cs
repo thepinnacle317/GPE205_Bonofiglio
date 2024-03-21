@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour
 
         // Spawn the map generator object in the current scene
         SpawnMapGenerator();
-        
     }
 
     void Start()
@@ -200,11 +199,18 @@ public class GameManager : MonoBehaviour
             mapGeneratorPrefab.GetComponent<MapGeneration>().cols = gmCols;
             mapGeneratorPrefab.GetComponent<MapGeneration>().rows = gmRows;
             mapGeneratorPrefab.GetComponent<MapGeneration>().tileHeight = gmTileHeight;
-            mapGeneratorPrefab.GetComponent<MapGeneration>().tileWidth = gmTileWidth;
-            mapGeneratorPrefab.GetComponent<MapGeneration>().mapSeed = gmMapSeed;
-
-            mapGeneratorPrefab.GetComponent<MapGeneration>().currentMapGenerationMethod = (MapGeneration.GenerationMethod)mapType;
+            mapGeneratorPrefab.GetComponent<MapGeneration>().tileWidth = gmTileWidth; 
         } 
+    }
+
+    public void RestartGame()
+    {
+        // Clean up the map
+        // Clear and remove the AI and controllers
+        // Clear and remove the players and controllers
+        // Regenerate the map
+        // Respawn the AI
+        // Respawn the players
     }
 
     public void DoMainMenuState()
@@ -270,6 +276,7 @@ public class GameManager : MonoBehaviour
     public void DoGamePlayState()
     {
         Debug.Log("Game Play State Active");
+
         mapGeneratorPrefab.GetComponent<MapGeneration>().GenerateMap();
         SpawnPlayer();
         SpawnRandomEnemy();
@@ -436,6 +443,17 @@ public class GameManager : MonoBehaviour
         CreditsStateObject.SetActive(true);
         // Execute Credits Logic
         DoCreditsState();
+    }
+
+    public void SetMapType(MapType type)
+    {
+        mapType = type;
+        if (mapGeneratorPrefab != null)
+        {
+            mapGeneratorPrefab.GetComponent<MapGeneration>().mapSeed = gmMapSeed;
+
+            mapGeneratorPrefab.GetComponent<MapGeneration>().currentMapGenerationMethod = (MapGeneration.GenerationMethod)mapType;
+        }
     }
 
     /* Prefabs */
