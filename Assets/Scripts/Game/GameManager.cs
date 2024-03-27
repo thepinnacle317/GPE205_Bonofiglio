@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 public class GameManager : MonoBehaviour
@@ -15,6 +16,12 @@ public class GameManager : MonoBehaviour
 
     // Holds a list of the AIControlles in the scene
     public List<AIController> aiControllers;
+
+    // Bool used to determine if we are calling restart
+    public bool restart = false;
+
+    // Bool used to determine if the game mode is split screen or single player
+    public bool bIsSinglePlayer = true;
 
     // Map Generator Prefab variable.  Must be set!!!
     public GameObject mapGeneratorPrefab;
@@ -90,6 +97,8 @@ public class GameManager : MonoBehaviour
                 players[1].score += playerTwoScore;
             }
         }
+
+        Debug.Log(restart);
     }
 
     public void SpawnPlayer()
@@ -199,18 +208,51 @@ public class GameManager : MonoBehaviour
             mapGeneratorPrefab.GetComponent<MapGeneration>().cols = gmCols;
             mapGeneratorPrefab.GetComponent<MapGeneration>().rows = gmRows;
             mapGeneratorPrefab.GetComponent<MapGeneration>().tileHeight = gmTileHeight;
-            mapGeneratorPrefab.GetComponent<MapGeneration>().tileWidth = gmTileWidth; 
+            mapGeneratorPrefab.GetComponent<MapGeneration>().tileWidth = gmTileWidth;
+
+            
         } 
     }
 
     public void RestartGame()
     {
+        /*
         // Clean up the map
+        foreach(var tile in mapGeneratorPrefab.GetComponent<MapGeneration>().gridPrefabs)
+        {
+            Destroy(tile);
+        }
+        Destroy(mapGeneratorPrefab);
+
         // Clear and remove the AI and controllers
+        aiControllers.Clear();
+        aiControllers.TrimExcess();
+        
+
         // Clear and remove the players and controllers
+        players.Clear();
+
+        // Reset the players health
+        foreach (var player in players)
+        {
+            player.currentLives = player.maxLives;
+        }
+
+        // Reset the players score
+        foreach (var player in players)
+        {
+            player.score = 0;
+        }
+
         // Regenerate the map
-        // Respawn the AI
-        // Respawn the players
+        SpawnMapGenerator();
+
+        // Spawn Players and AI
+        ActivateGamePlayState();
+        */
+        LevelSelectStateObject = GameObject.Find("LevelSelect");
+        SceneManager.LoadSceneAsync("Main");
+        ActivateLevelSelectScreen();
     }
 
     public void DoMainMenuState()
@@ -255,7 +297,15 @@ public class GameManager : MonoBehaviour
         Debug.Log("Level Won State Active");
         currentGameState = GameStates.LevelWon;
 
-        // TODO: Show players scores and achievements.  
+        // TODO: Show players scores and achievements.
+        // Remove the player HUD.
+        // Disable tank movement
+        // Display the players score in a panel.
+
+        // Cool stats that could be displayed
+        // Shots fired
+        // Damage Done
+        // Accuracy
         // Ask the player if they would like to play a new level or return to main menu.
     }
 
@@ -263,8 +313,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Level Select State Active");
         currentGameState = GameStates.LevelSelect;
-
-        // TODO: Give the player the option to select which generated map they would like to play. (Map of the day, Seed value, Random Generation)
     }
 
     public void DoCreditsState()
@@ -417,6 +465,8 @@ public class GameManager : MonoBehaviour
         GamePlayStateObject.SetActive(true);
         // Execute Game Play Logic
         DoGamePlayState();
+
+        restart = false;
     }
 
     public void ActivateLevelWonState()

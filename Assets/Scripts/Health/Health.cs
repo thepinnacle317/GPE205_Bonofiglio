@@ -150,8 +150,10 @@ public class Health : MonoBehaviour
 
     public void UpdateLivesUI(Controller owningController)
     {
-        Health healthComp = owningController.pawn.GetComponent<Health>();
-        owningController.pawn.livesText.text = owningController.currentLives.ToString();
-       
+        if (owningController.pawn.GetComponent<TankPawn>().isAIPawn == false)
+        {
+            Health healthComp = owningController.pawn.GetComponent<Health>();
+            owningController.pawn.livesText.text = owningController.currentLives.ToString();
+        }
     }
 }

@@ -53,3 +53,4 @@ MonoBehaviour:
   rotateClockwiseKey: 100
   rotateCounterClockwiseKey: 97
   shootKey: 118
+  restartGame: 270

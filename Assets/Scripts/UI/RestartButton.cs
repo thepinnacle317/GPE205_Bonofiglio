@@ -12,6 +12,8 @@ public class RestartButton : MonoBehaviour
         // Check to make sure there is a valid GameManager
         if (GameManager.instance != null)
         {
+            GameManager.instance.restart = true;
+            Debug.Log(GameManager.instance.restart);
             GameManager.instance.RestartGame();
         }
     }

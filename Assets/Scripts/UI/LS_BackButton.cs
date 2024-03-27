@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreditsCloseButton : MonoBehaviour
+public class LS_BackButton : MonoBehaviour
 {
-    public Button creditsCloseButton;
+    public Button lsBackButton;
 
-    public void CloseCreditsMenu()
+    public void ReturnToMainMenu()
     {
         if (GameManager.instance != null)
         {

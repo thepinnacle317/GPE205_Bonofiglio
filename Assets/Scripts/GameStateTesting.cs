@@ -11,6 +11,7 @@ public class GameStateTesting : MonoBehaviour
     public KeyCode levelselectKey;
     public KeyCode leaderboardKey;
     public KeyCode gameplayKey;
+    public KeyCode levelWon;
     public KeyCode gameoverKey;
     public KeyCode creditsKey;
 
@@ -63,6 +64,10 @@ public class GameStateTesting : MonoBehaviour
         if (Input.GetKeyDown(creditsKey))
         {
             manager.ActivateCreditsScreen();
+        }
+        if (Input.GetKeyDown(levelWon))
+        {
+            
         }
     }
 }

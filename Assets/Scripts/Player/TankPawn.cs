@@ -10,8 +10,6 @@ public class TankPawn : Pawn
     public bool isAIPawn;
     public RaycastHit hitResults;
 
-    
-
     public override void Start()
     {
         base.Start();
@@ -38,6 +36,15 @@ public class TankPawn : Pawn
                 // Rotate the ai pawn 5 degrees.
                 transform.Rotate(0, 5 * Time.deltaTime, 0 );
             } 
+        }
+
+        if (GameManager.instance != null)
+        {
+            if (GameManager.instance.restart == true)
+            {
+                Destroy(gameObject);
+                Debug.Log("Tank Destroyed by restart");
+            }
         }
     }
 

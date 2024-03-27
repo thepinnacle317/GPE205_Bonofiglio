@@ -44,9 +44,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e94cec820afd7143a0c1dbf983ff658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpawnPoint: {fileID: 0}
   players: []
   aiControllers: []
+  restart: 0
+  bIsSinglePlayer: 1
+  mapGeneratorPrefab: {fileID: 0}
+  gmRows: 2
+  gmCols: 2
+  gmTileWidth: 50
+  gmTileHeight: 50
+  mapType: 0
+  gmMapSeed: 0
+  currentGameState: 0
+  TitleScreenStateObject: {fileID: 2306552831162435679, guid: 460a94ba53aa4a24e830748901a5162e, type: 3}
+  MainMenuStateObject: {fileID: 6313149344977886270, guid: 0b64aa752d68bbd46bf6b493ba23c357, type: 3}
+  OptionsScreenStateObject: {fileID: 9078603660774340145, guid: 9f23c062b1dbb13419828bd0e2a11124, type: 3}
+  LeaderboardStateObject: {fileID: 7951735424721249267, guid: 845ad4170034edb428c0072b143bf30c, type: 3}
+  LevelSelectStateObject: {fileID: 982353115786141916, guid: ef901e4252a5c404595bafb9d658d8ba, type: 3}
+  GamePlayStateObject: {fileID: 4424459023915116740, guid: c752367ffe8c211409f5e481bc94fa5f, type: 3}
+  LevelWonStateObject: {fileID: 6126485797176209824, guid: 26a6e6e9afbb389419905b58f248898c, type: 3}
+  GameOverStateObject: {fileID: 7415223192448924258, guid: a075bb26f8e67344e9e532adb9381d7e, type: 3}
+  CreditsStateObject: {fileID: 7529987072277059909, guid: 9bdc2a9adebe59f4c921b02fc2f70d63, type: 3}
   playerControllerPrefab: {fileID: 7182852624166541173, guid: 4ffd6ee673f4cef45940a14e8208828e, type: 3}
   aiControllerPrefab:
   - {fileID: 7697824568378534751, guid: cb324046a1d0f144490a75e225cc3eb7, type: 3}

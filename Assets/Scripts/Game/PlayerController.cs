@@ -11,6 +11,7 @@ public class PlayerController : Controller
     public KeyCode rotateClockwiseKey;
     public KeyCode rotateCounterClockwiseKey;
     public KeyCode shootKey;
+    public KeyCode restartGame;
 
     public override void Start()
     {
@@ -87,6 +88,10 @@ public class PlayerController : Controller
             !Input.GetKey(rotateCounterClockwiseKey) && !Input.GetKeyDown(shootKey))
         {
             pawn.StopNoise();
+        }
+        if (Input.GetKeyDown(restartGame))
+        {
+            GameManager.instance.RestartGame();
         }
     }
 }
