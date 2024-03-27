@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
 
         // Spawn the map generator object in the current scene
         SpawnMapGenerator();
+
+        SetUIObjects();
     }
 
     void Start()
@@ -250,7 +252,6 @@ public class GameManager : MonoBehaviour
         // Spawn Players and AI
         ActivateGamePlayState();
         */
-        LevelSelectStateObject = GameObject.Find("LevelSelect");
         SceneManager.LoadSceneAsync("Main");
         ActivateLevelSelectScreen();
     }
@@ -504,6 +505,19 @@ public class GameManager : MonoBehaviour
 
             mapGeneratorPrefab.GetComponent<MapGeneration>().currentMapGenerationMethod = (MapGeneration.GenerationMethod)mapType;
         }
+    }
+
+    public void SetUIObjects()
+    {
+        TitleScreenStateObject = Instantiate(TitleScreenStateObject, transform);
+        MainMenuStateObject = Instantiate(MainMenuStateObject, transform);
+        OptionsScreenStateObject = Instantiate(OptionsScreenStateObject, transform);
+        LevelSelectStateObject = Instantiate(LevelSelectStateObject, transform);
+        LeaderboardStateObject = Instantiate(LeaderboardStateObject, transform);
+        GamePlayStateObject = Instantiate(GamePlayStateObject, transform);
+        LevelWonStateObject = Instantiate(LevelWonStateObject, transform);
+        GameOverStateObject = Instantiate(GameOverStateObject, transform); 
+        CreditsStateObject = Instantiate(CreditsStateObject, transform);
     }
 
     /* Prefabs */
