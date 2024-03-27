@@ -2,18 +2,27 @@ using FXV;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class TankPawn : Pawn
 {
+    /* AI */
     public bool isAIPawn;
     public RaycastHit hitResults;
+
+    /* Audio */
+    public AudioSource tankAudioSource;
+    public AudioClip tankEngineClip;
+    public AudioClip destroyedClip;
+
 
     public override void Start()
     {
         base.Start();
         shooter.shotDelay = fireRate;
+        tankAudioSource = gameObject.GetComponent<AudioSource>();        
     }
 
     public override void Update()
@@ -36,15 +45,6 @@ public class TankPawn : Pawn
                 // Rotate the ai pawn 5 degrees.
                 transform.Rotate(0, 5 * Time.deltaTime, 0 );
             } 
-        }
-
-        if (GameManager.instance != null)
-        {
-            if (GameManager.instance.restart == true)
-            {
-                Destroy(gameObject);
-                Debug.Log("Tank Destroyed by restart");
-            }
         }
     }
 

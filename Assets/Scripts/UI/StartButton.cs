@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StartButton : MonoBehaviour
 {
     public Button startButton;
+    public AudioClip clip;
    public void StartButtonPressed()
     {
         // Check to make sure there is a valid GameManager

@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class HealthPickup : PickupBase
 {
     public HealthPowerup healthPowerup;
+    public AudioClip healthClip;
 
     public override void Start()
     {
@@ -25,6 +27,8 @@ public class HealthPickup : PickupBase
         {
             // Add the Health Powerup
             powerupManager.Add(healthPowerup);
+
+            AudioSource.PlayClipAtPoint(healthClip, transform.position);
 
             // Destroy the Health Pickup
             Destroy(gameObject);

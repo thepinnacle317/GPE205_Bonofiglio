@@ -321,6 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSlider: {fileID: 0}
+  Mixer: {fileID: 0}
 --- !u!114 &505470668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,7 +492,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1186383893}
   - component: {fileID: 1186383892}
-  - component: {fileID: 1186383891}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -499,14 +499,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1186383891
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186383890}
-  m_Enabled: 1
 --- !u!20 &1186383892
 Camera:
   m_ObjectHideFlags: 0
@@ -666,6 +658,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1484836650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1484836652}
+  - component: {fileID: 1484836651}
+  m_Layer: 0
+  m_Name: AudioListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1484836651
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484836650}
+  m_Enabled: 1
+--- !u!4 &1484836652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484836650}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1941071832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -720,11 +752,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
       propertyPath: gmCols
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
       propertyPath: gmRows
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7532151609598044829, guid: c1236a5c6778ab54fa54bd207e89ed59, type: 3}
       propertyPath: mapType
@@ -789,3 +821,4 @@ SceneRoots:
   - {fileID: 1941071832}
   - {fileID: 505470658}
   - {fileID: 1178810092}
+  - {fileID: 1484836652}

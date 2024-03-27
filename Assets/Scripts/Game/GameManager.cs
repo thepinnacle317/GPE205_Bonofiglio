@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
@@ -57,6 +58,11 @@ public class GameManager : MonoBehaviour
     protected int playerOneScore;
     protected int playerTwoScore;
 
+    /* Audio */
+    public AudioMixer audioMixer;
+    private AudioSource audioSource;
+    public AudioClip mainMenuMusic;
+    public AudioClip gameplayMusic;
 
     // Called when the object is first created.
     private void Awake()
@@ -77,13 +83,23 @@ public class GameManager : MonoBehaviour
         // Spawn the map generator object in the current scene
         SpawnMapGenerator();
 
+        // Set the UI Game Objects
         SetUIObjects();
+
+        // Get the Audio Source Component
+        audioSource = GetComponent<AudioSource>();
+
+        //Set the clip to be played
+        audioSource.clip = mainMenuMusic;
     }
 
     void Start()
     {
         currentGameState = GameStates.TitleScreen;
         ActivateTitleScreen();
+       
+        // Play the Main Music Source
+        audioSource.Play();
     }
 
     void Update()
@@ -325,6 +341,9 @@ public class GameManager : MonoBehaviour
     public void DoGamePlayState()
     {
         Debug.Log("Game Play State Active");
+        audioSource.Stop();
+        audioSource.clip = gameplayMusic;
+        audioSource.Play();
 
         mapGeneratorPrefab.GetComponent<MapGeneration>().GenerateMap();
         SpawnPlayer();

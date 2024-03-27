@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1909508964699421709}
   - component: {fileID: 7532151609598044829}
+  - component: {fileID: 951801579438931295}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -65,6 +66,9 @@ MonoBehaviour:
   LevelWonStateObject: {fileID: 6126485797176209824, guid: 26a6e6e9afbb389419905b58f248898c, type: 3}
   GameOverStateObject: {fileID: 7415223192448924258, guid: a075bb26f8e67344e9e532adb9381d7e, type: 3}
   CreditsStateObject: {fileID: 7529987072277059909, guid: 9bdc2a9adebe59f4c921b02fc2f70d63, type: 3}
+  audioMixer: {fileID: 24100000, guid: 2d61177cabda36e4785164015a030303, type: 2}
+  mainMenuMusic: {fileID: 8300000, guid: fdfc7cdd29512c340a89913f5fc1236a, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: e383d50d5d839314a89951405cf08c2c, type: 3}
   playerControllerPrefab: {fileID: 7182852624166541173, guid: 4ffd6ee673f4cef45940a14e8208828e, type: 3}
   aiControllerPrefab:
   - {fileID: 7697824568378534751, guid: cb324046a1d0f144490a75e225cc3eb7, type: 3}
@@ -73,3 +77,100 @@ MonoBehaviour:
   - {fileID: 7605098241875672361, guid: 0eb41993e35a6b340a72c3fa64f48a3b, type: 3}
   aiTankPrefab: {fileID: 3471592086305599112, guid: 3055fb73b1772f34eaf42cbe8b60836b, type: 3}
   tankPawnPrefab: {fileID: 3471592086305599112, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
+--- !u!82 &951801579438931295
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457071051803944267}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 3323858619710959154, guid: 2d61177cabda36e4785164015a030303, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

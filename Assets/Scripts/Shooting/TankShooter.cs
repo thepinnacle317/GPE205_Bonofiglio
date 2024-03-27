@@ -7,7 +7,9 @@ public class TankShooter : Shooter
     // Transform to spawn tank shells from 
     public Transform firepointTransform;
     private float timeUntilNextShot;
-    private bool bCanFire = false;
+    public bool bCanFire = false;
+
+    public AudioClip fireClip;
 
     public override void Start()
     {
@@ -29,6 +31,7 @@ public class TankShooter : Shooter
     {
         if (bCanFire == true)
         {
+            gameObject.GetComponent<AudioSource>().PlayOneShot(fireClip);
             // Instantiate the tank shell
             GameObject newShell = Instantiate(tankhellPrefab, firepointTransform.position, firepointTransform.rotation)
                 as GameObject;

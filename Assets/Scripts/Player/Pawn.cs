@@ -27,7 +27,7 @@ public abstract class Pawn : MonoBehaviour
     [HideInInspector]
     public Mover mover;
     [HideInInspector]
-    public Shooter shooter;
+    public TankShooter shooter;
     [HideInInspector]
     public NoiseMaker noiseMaker;
 
@@ -47,7 +47,7 @@ public abstract class Pawn : MonoBehaviour
     public virtual void Start()
     {
         mover = GetComponent<Mover>();
-        shooter = GetComponent<Shooter>();
+        shooter = GetComponent<TankShooter>();
         noiseMaker = GetComponent<NoiseMaker>();
         shield = GetComponent<Shield>();
     }

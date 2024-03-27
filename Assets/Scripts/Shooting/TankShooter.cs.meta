@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 92b33bec63152694fb0559e35450f6aa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - firepointTransform: {instanceID: 0}
+  - fireClip: {fileID: 8300000, guid: 0351dd11b94b50143b264c7d5c118b13, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

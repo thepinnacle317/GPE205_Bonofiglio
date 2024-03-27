@@ -10,6 +10,8 @@ public class DamageOnHit : MonoBehaviour
     // Pawns Involved 
     public Pawn target;
     public Pawn attacker;
+    public AudioClip hitClip;
+
     
     void Start()
     {
@@ -29,6 +31,7 @@ public class DamageOnHit : MonoBehaviour
         // Only damage the hit object if it has a valid Health Component
         if (targetHealth != null)
         {
+            GetComponent<AudioSource>().PlayOneShot(hitClip);
             targetHealth.TakeDamage(damageDone, attacker, target);
         }
 

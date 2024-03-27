@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
+
 public class ScorePickup : PickupBase
 {
     /* Score amount variable */
     public int scoreAmount;
+    public AudioClip scoreClip;
 
     private Controller controller;
 
@@ -29,6 +32,8 @@ public class ScorePickup : PickupBase
         {
             controller.AddToScore(scoreAmount);
             Debug.Log(tankPawn.name + " has " + controller.score);
+
+            AudioSource.PlayClipAtPoint(scoreClip, transform.position);
 
             // Destroy the Score Pickup
             Destroy(gameObject);

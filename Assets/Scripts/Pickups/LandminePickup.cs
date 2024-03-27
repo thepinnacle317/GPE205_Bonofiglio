@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(AudioSource))]
+
 public class LandminePickup : PickupBase
 {
     public DamagePowerup damagePowerup;
+    public AudioClip explosionSound;
 
     public override void Start()
     {
@@ -24,6 +28,7 @@ public class LandminePickup : PickupBase
             // Add the Health Powerup
             powerupManager.Add(damagePowerup);
 
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
             // Destroy the Health Pickup
             Destroy(gameObject);
         }

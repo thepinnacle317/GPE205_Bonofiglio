@@ -68,7 +68,8 @@ public class Health : MonoBehaviour
 
     public void Die(Pawn source)
     {
-        if (source.controller.pawn.GetComponent<TankPawn>().isAIPawn != true)
+        tankPawn = source.controller.pawn.GetComponent<TankPawn>();
+        if (tankPawn.isAIPawn != true)
         {
             Debug.Log("Player Pawn has Died");
             // Subtract a life when the player dies
@@ -83,7 +84,11 @@ public class Health : MonoBehaviour
                     // Are there current players in the game
                     if (GameManager.instance.players != null)
                     {
+                        // Play Destroyed Sound and VFX
+                        tankPawn.tankAudioSource.PlayOneShot(tankPawn.destroyedClip);
+
                         Destroy(gameObject);
+
                         // Respawn the player if they have enough lives
                         GameManager.instance.RespawnPlayer();
 
