@@ -2055,11 +2055,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8257661191287503957, guid: b2e80e12c2ae30c489b96a5ae814185c, type: 3}
       propertyPath: m_Name
-      value: PatrolPoint
+      value: PatrolPoint01
       objectReference: {fileID: 0}
     - target: {fileID: 8824627071539527422, guid: b2e80e12c2ae30c489b96a5ae814185c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.9063873
+      value: 7.61
       objectReference: {fileID: 0}
     - target: {fileID: 8824627071539527422, guid: b2e80e12c2ae30c489b96a5ae814185c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2067,7 +2067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8824627071539527422, guid: b2e80e12c2ae30c489b96a5ae814185c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.746521
+      value: -9.07
       objectReference: {fileID: 0}
     - target: {fileID: 8824627071539527422, guid: b2e80e12c2ae30c489b96a5ae814185c, type: 3}
       propertyPath: m_LocalRotation.w

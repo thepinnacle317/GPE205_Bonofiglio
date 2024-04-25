@@ -7,12 +7,18 @@ public class StartButton : MonoBehaviour
 {
     public Button startButton;
     public AudioClip clip;
-   public void StartButtonPressed()
+    public AudioSource audioSource;
+
+    public void Start()
     {
-        // Check to make sure there is a valid GameManager
         if (GameManager.instance != null)
         {
-            GameManager.instance.ActivateMainMenu();
+            audioSource = GameManager.instance.GetComponent<AudioSource>();
         }
+    }
+    public void StartButtonPressed()
+    {
+            audioSource.PlayOneShot(clip);
+            GameManager.instance.ActivateMainMenu();
     }
 }

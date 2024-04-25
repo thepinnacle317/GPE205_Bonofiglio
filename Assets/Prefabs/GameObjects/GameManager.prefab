@@ -66,17 +66,24 @@ MonoBehaviour:
   LevelWonStateObject: {fileID: 6126485797176209824, guid: 26a6e6e9afbb389419905b58f248898c, type: 3}
   GameOverStateObject: {fileID: 7415223192448924258, guid: a075bb26f8e67344e9e532adb9381d7e, type: 3}
   CreditsStateObject: {fileID: 7529987072277059909, guid: 9bdc2a9adebe59f4c921b02fc2f70d63, type: 3}
+  playerOneScore: 0
+  playerTwoScore: 0
   audioMixer: {fileID: 24100000, guid: 2d61177cabda36e4785164015a030303, type: 2}
   mainMenuMusic: {fileID: 8300000, guid: fdfc7cdd29512c340a89913f5fc1236a, type: 3}
   gameplayMusic: {fileID: 8300000, guid: e383d50d5d839314a89951405cf08c2c, type: 3}
-  playerControllerPrefab: {fileID: 7182852624166541173, guid: 4ffd6ee673f4cef45940a14e8208828e, type: 3}
+  player1Camera: {fileID: 0}
+  mainCamera: {fileID: 0}
+  mainCameraPrefab: {fileID: 2171005706613319994, guid: 5ff4ba575f2eab744b006aef3e61687d, type: 3}
+  player1ControllerPrefab: {fileID: 7182852624166541173, guid: 4ffd6ee673f4cef45940a14e8208828e, type: 3}
+  player2ControllerPrefab: {fileID: 7182852624166541173, guid: e7a406aaeb4e8af4e87d02f86f0180ec, type: 3}
   aiControllerPrefab:
   - {fileID: 7697824568378534751, guid: cb324046a1d0f144490a75e225cc3eb7, type: 3}
   - {fileID: 8567599633517131680, guid: 8433f7253ee1df541b9867e177d1e2a7, type: 3}
   - {fileID: 5799502420192421883, guid: 1045c1538b4e2084eb276a8edb3e572d, type: 3}
   - {fileID: 7605098241875672361, guid: 0eb41993e35a6b340a72c3fa64f48a3b, type: 3}
   aiTankPrefab: {fileID: 3471592086305599112, guid: 3055fb73b1772f34eaf42cbe8b60836b, type: 3}
-  tankPawnPrefab: {fileID: 3471592086305599112, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
+  tank1PawnPrefab: {fileID: 3471592086305599112, guid: 1828ce9f02cbe154b8d38e3bf5bc5118, type: 3}
+  tank2PawnPrefab: {fileID: 3471592086305599112, guid: 91d4d5b36709f334ea04782993b7aac5, type: 3}
 --- !u!82 &951801579438931295
 AudioSource:
   m_ObjectHideFlags: 0

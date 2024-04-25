@@ -67,7 +67,7 @@ public class GameStateTesting : MonoBehaviour
         }
         if (Input.GetKeyDown(levelWon))
         {
-            
+            manager.ActivateLevelWonState();
         }
     }
 }

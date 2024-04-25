@@ -13,7 +13,6 @@ public class RestartButton : MonoBehaviour
         if (GameManager.instance != null)
         {
             GameManager.instance.restart = true;
-            Debug.Log(GameManager.instance.restart);
             GameManager.instance.RestartGame();
         }
     }

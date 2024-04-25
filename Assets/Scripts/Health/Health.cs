@@ -22,6 +22,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
         currentArmor = 0f;
+        tankPawn = gameObject.GetComponent<TankPawn>();
     }
 
     private void Update()
@@ -35,6 +36,7 @@ public class Health : MonoBehaviour
         if (currentArmor > 0f) 
         {
             currentArmor -= damage;
+            UpdateArmorUI(target);
         }
         // Otherwise take health damage
         else
@@ -109,7 +111,6 @@ public class Health : MonoBehaviour
                 // TODO: Make a check that both players are out of lives for split screen and solo play separately.
             }
         }
-        
         Destroy(gameObject);
     }
 
@@ -147,7 +148,7 @@ public class Health : MonoBehaviour
     public void UpdateArmorUI(Pawn owningPawn)
     {
         Health healthComp = owningPawn.GetComponent<Health>();
-        if (owningPawn.healthImage != null)
+        if (owningPawn.armorImage != null)
         {
             owningPawn.armorImage.fillAmount = currentArmor / maxArmor;
         }

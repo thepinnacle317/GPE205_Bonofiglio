@@ -45,14 +45,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 0}
+  currentLives: 0
+  maxLives: 0
+  score: 0
   currentState: 7
   target: {fileID: 0}
   targetController: {fileID: 0}
   fleeDistance: 15
   hearingDistance: 25
   fieldOfView: 15
-  waypoints: []
-  currentPatrolType: 1
+  patrolPoints: []
+  currentPatrolType: 0
   waypointsStopDistance: 5
   defendTime: 5
   guardPostTransform: {fileID: 0}

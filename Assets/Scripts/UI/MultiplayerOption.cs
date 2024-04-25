@@ -14,15 +14,14 @@ public class MultiplayerOption : MonoBehaviour
         {
             if (!multiplayerToggle.isOn)
             {
-                multiplayerToggle.isOn = true;
+                //multiplayerToggle.isOn = true;
+                GameManager.instance.bIsSinglePlayer = true;
             }
             else
             {
-                multiplayerToggle.isOn = false;
+                //multiplayerToggle.isOn = false;
+                GameManager.instance.bIsSinglePlayer = false;
             }
-            
-
-            // TODO: set single player of multiplayer.
         }
     }
 }

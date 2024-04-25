@@ -17,12 +17,15 @@ public class TankPawn : Pawn
     public AudioClip tankEngineClip;
     public AudioClip destroyedClip;
 
+    /* Camera Ref */
+    public Camera playerCamera;
+
 
     public override void Start()
     {
         base.Start();
         shooter.shotDelay = fireRate;
-        tankAudioSource = gameObject.GetComponent<AudioSource>();        
+        tankAudioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public override void Update()
@@ -37,14 +40,19 @@ public class TankPawn : Pawn
             if (hitResults.distance < 50f)
             {
                 // Rotate the AI Pawn 90 degrees left or right
-                transform.Rotate(0, 90 * Time.deltaTime, 0);
+                //transform.Rotate(0, 90 * Time.deltaTime, 0);
+                RotateClockwise();
+                Debug.Log("ShortHit");
                 // Possibly add a check by getting the hit normal and then picking a side to favor to rotate towards.
             }
+            /*
             if (hitResults.distance > 100f && hitResults.distance < 300)
             {
                 // Rotate the ai pawn 5 degrees.
                 transform.Rotate(0, 5 * Time.deltaTime, 0 );
+                Debug.Log("LongHit");
             } 
+            */
         }
     }
 
@@ -102,9 +110,16 @@ public class TankPawn : Pawn
 
     protected void LineTrace()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward));
         
-        Physics.Raycast(ray, out hitResults);
-        Debug.DrawRay(transform.position, transform.forward);
+        if (Physics.Raycast(ray, out hitResults, 150))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hitResults.distance, Color.red);
+            Debug.Log("Hit");
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 150, Color.green);
+        }
     }
 }

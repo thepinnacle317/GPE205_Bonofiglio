@@ -14,12 +14,12 @@ public class ScorePickup : PickupBase
 
     public override void Start()
     {
-        
+        base.Start();
     }
 
     public override void Update()
     {
-        
+        base.Update();
     }
 
     public void OnTriggerEnter(Collider other)

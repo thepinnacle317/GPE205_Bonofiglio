@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public bool restart = false;
 
     // Bool used to determine if the game mode is split screen or single player
-    public bool bIsSinglePlayer = true;
+    public bool bIsSinglePlayer;
 
     // Map Generator Prefab variable.  Must be set!!!
     public GameObject mapGeneratorPrefab;
@@ -55,14 +55,19 @@ public class GameManager : MonoBehaviour
     /* Scoring System */
     protected int highScore;
     protected string highScoreName;
-    protected int playerOneScore;
-    protected int playerTwoScore;
+    public int playerOneScore;
+    public int playerTwoScore;
 
     /* Audio */
     public AudioMixer audioMixer;
     private AudioSource audioSource;
     public AudioClip mainMenuMusic;
     public AudioClip gameplayMusic;
+
+    /* Cameras */
+    public Camera player1Camera;
+    public Camera mainCamera;
+    public GameObject mainCameraPrefab;
 
     // Called when the object is first created.
     private void Awake()
@@ -100,6 +105,17 @@ public class GameManager : MonoBehaviour
        
         // Play the Main Music Source
         audioSource.Play();
+
+        Vector3 cameraSpawnLoc = new Vector3(0f, 0f, -391);
+
+        GameObject newMainCamera = Instantiate(mainCameraPrefab, cameraSpawnLoc, Quaternion.identity);
+        DontDestroyOnLoad(newMainCamera);
+
+        // Find the main camera at startup
+        mainCamera = FindObjectOfType<Camera>();
+
+        // Keep the reference to the camera component for the menu system.
+        DontDestroyOnLoad(mainCamera);
     }
 
     void Update()
@@ -108,44 +124,90 @@ public class GameManager : MonoBehaviour
         {
             if (players[0])
             {
-                players[0].score += playerOneScore;
+                playerOneScore = players[0].score;
             }
             if (players.Count > 1 && players[1])
             {
-                players[1].score += playerTwoScore;
+                playerTwoScore = players[1].score;
             }
         }
-
-        Debug.Log(restart);
     }
 
-    public void SpawnPlayer()
+    private void LateUpdate()
+    {
+        if (currentGameState == GameStates.GamePlay)
+        {
+            if (playerOneScore >= (aiControllers.Count * 15) + (aiControllers.Count * 10) - 30 || playerTwoScore >= (aiControllers.Count * 15) + (aiControllers.Count * 10) - 30)
+            {
+                ActivateLevelWonState();
+            }           
+        }   
+    }
+
+    public void SpawnPlayers()
     {
         // Spawn the Player Controller at world origin.
-        GameObject newControllerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity)
+        GameObject newControllerObj1 = Instantiate(player1ControllerPrefab, Vector3.zero, Quaternion.identity)
             as GameObject;
 
         // Spawn the pawn at a random position and assign it to the controller
-        GameObject newPawnObj = Instantiate(tankPawnPrefab, GetRandomPlayerSpawnpoint().transform.position, GetRandomPlayerSpawnpoint().transform.rotation)
+        GameObject newPawnObj1 = Instantiate(tank1PawnPrefab, GetRandomPlayerSpawnpoint().transform.position, GetRandomPlayerSpawnpoint().transform.rotation)
             as GameObject;
 
-        newPawnObj.AddComponent<NoiseMaker>();
+            newPawnObj1.AddComponent<NoiseMaker>();
 
         // Set the controller component to the controller object.
-        Controller newController = newControllerObj.GetComponent<Controller>();
+        Controller newController1 = newControllerObj1.GetComponent<Controller>();
 
         // Set the pawn component to the pawn object
-        Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+        Pawn newPawn1 = newPawnObj1.GetComponent<Pawn>();
 
-        newPawn.noiseMaker = newPawnObj.GetComponent<NoiseMaker>();
+        newPawn1.noiseMaker = newPawnObj1.GetComponent<NoiseMaker>();
         // Sets the noisemaker volume.
-        newPawn.noiseMakerVolume = 5;
+        newPawn1.noiseMakerVolume = 5;
 
         // Assigns the pawn to the controller
-        newController.pawn = newPawn;
+        newController1.pawn = newPawn1;
 
         // Assigns the Controller to the Pawn
-        newPawn.controller = newController;
+        newPawn1.controller = newController1;
+
+        // Set the Player One camera to for split-screen
+        if (bIsSinglePlayer == false)
+        {         
+            SpawnPlayer2();
+            player1Camera = newPawnObj1.GetComponent<TankPawn>().playerCamera;
+            player1Camera.rect = new Rect(0, 0, .5f, 1f);
+        }
+    }
+
+    public void SpawnPlayer2()
+    {
+        // Spawn the Player Controller at world origin.
+        GameObject newControllerObj2 = Instantiate(player2ControllerPrefab, Vector3.zero, Quaternion.identity)
+            as GameObject;
+
+        // Spawn the pawn at a random position and assign it to the controller
+        GameObject newPawnObj2 = Instantiate(tank2PawnPrefab, GetRandomPlayerSpawnpoint().transform.position, GetRandomPlayerSpawnpoint().transform.rotation)
+            as GameObject;
+
+        newPawnObj2.AddComponent<NoiseMaker>();
+
+        // Set the controller component to the controller object.
+        Controller newController2 = newControllerObj2.GetComponent<Controller>();
+
+        // Set the pawn component to the pawn object
+        Pawn newPawn2 = newPawnObj2.GetComponent<Pawn>();
+
+        newPawn2.noiseMaker = newPawnObj2.GetComponent<NoiseMaker>();
+        // Sets the noisemaker volume.
+        newPawn2.noiseMakerVolume = 5;
+
+        // Assigns the pawn to the controller
+        newController2.pawn = newPawn2;
+
+        // Assigns the Controller to the Pawn
+        newPawn2.controller = newController2;
     }
 
     public void RespawnPlayer()
@@ -153,7 +215,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Respawning player");
 
         // Spawn the pawn at a random position and assign it to the controller
-        GameObject newPawnObj = Instantiate(tankPawnPrefab, GetRandomPlayerSpawnpoint().transform.position, GetRandomPlayerSpawnpoint().transform.rotation);
+        GameObject newPawnObj = Instantiate(tank1PawnPrefab, GetRandomPlayerSpawnpoint().transform.position, GetRandomPlayerSpawnpoint().transform.rotation);
 
         // Set the pawn component to the pawn object
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
@@ -227,55 +289,30 @@ public class GameManager : MonoBehaviour
             mapGeneratorPrefab.GetComponent<MapGeneration>().rows = gmRows;
             mapGeneratorPrefab.GetComponent<MapGeneration>().tileHeight = gmTileHeight;
             mapGeneratorPrefab.GetComponent<MapGeneration>().tileWidth = gmTileWidth;
-
-            
         } 
     }
 
     public void RestartGame()
     {
-        /*
-        // Clean up the map
-        foreach(var tile in mapGeneratorPrefab.GetComponent<MapGeneration>().gridPrefabs)
-        {
-            Destroy(tile);
-        }
-        Destroy(mapGeneratorPrefab);
-
-        // Clear and remove the AI and controllers
-        aiControllers.Clear();
-        aiControllers.TrimExcess();
-        
-
-        // Clear and remove the players and controllers
-        players.Clear();
-
-        // Reset the players health
-        foreach (var player in players)
-        {
-            player.currentLives = player.maxLives;
-        }
-
-        // Reset the players score
-        foreach (var player in players)
-        {
-            player.score = 0;
-        }
-
-        // Regenerate the map
-        SpawnMapGenerator();
-
-        // Spawn Players and AI
-        ActivateGamePlayState();
-        */
         SceneManager.LoadSceneAsync("Main");
+        mainCamera.gameObject.SetActive(true);
+
         ActivateLevelSelectScreen();
+
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadSceneAsync("Main");
+        mainCamera.gameObject.SetActive(true);
+        ActivateMainMenu();
     }
 
     public void DoMainMenuState()
     {
         Debug.Log("Main Menu State Active");
         currentGameState = GameStates.MainMenu;
+        mainCamera.gameObject.SetActive(true);
     }
 
     public void DoTitleScreenState()
@@ -288,8 +325,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Options Menu State Active");
         currentGameState = GameStates.Options;
-
-        // TODO: Options for Music volume, SFX volume, map size slider from 2 - 5
     }
 
     public void DoLeaderboardState()
@@ -304,15 +339,15 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over State Active");
         currentGameState = GameStates.GameOver;
-
-        // TODO: If Main Menu: Clean up the map and all the AI and Players. Change State to main menu
-        // If Retry: Regenerate the map and spawn everything back in using ActivateGamePlayState().
+        mainCamera.gameObject.SetActive(true);
     }
 
     public void DoLevelWonState()
     {
         Debug.Log("Level Won State Active");
         currentGameState = GameStates.LevelWon;
+        mainCamera.gameObject.SetActive(true);
+
 
         // TODO: Show players scores and achievements.
         // Remove the player HUD.
@@ -323,31 +358,40 @@ public class GameManager : MonoBehaviour
         // Shots fired
         // Damage Done
         // Accuracy
-        // Ask the player if they would like to play a new level or return to main menu.
     }
 
     public void DoLevelSelectState()
     {
         Debug.Log("Level Select State Active");
+        //mainCamera.gameObject.SetActive(true);
         currentGameState = GameStates.LevelSelect;
     }
 
     public void DoCreditsState()
     {
         Debug.Log("Credits State Active");
+        mainCamera.gameObject.SetActive(true);
         currentGameState = GameStates.Credits;
     }
 
     public void DoGamePlayState()
     {
         Debug.Log("Game Play State Active");
+        currentGameState = GameStates.GamePlay;
+
+        // Background Audio
         audioSource.Stop();
         audioSource.clip = gameplayMusic;
         audioSource.Play();
 
+        // Disable the main menu camera
+        mainCamera.gameObject.SetActive(false);
+
+        // Handle map generation and spawning in pawns
         mapGeneratorPrefab.GetComponent<MapGeneration>().GenerateMap();
-        SpawnPlayer();
+        SpawnPlayers();
         SpawnRandomEnemy();
+
     }
 
     /* Game State Transitions */
@@ -406,6 +450,15 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Game Play Object is not set");
+        }
+
+        if (LevelWonStateObject != null)
+        {
+            LevelWonStateObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Level Won Object is not set");
         }
 
         if (GameOverStateObject != null)
@@ -540,8 +593,10 @@ public class GameManager : MonoBehaviour
     }
 
     /* Prefabs */
-    public GameObject playerControllerPrefab;
+    public GameObject player1ControllerPrefab;
+    public GameObject player2ControllerPrefab;
     public GameObject[] aiControllerPrefab;
     public GameObject aiTankPrefab;
-    public GameObject tankPawnPrefab;
+    public GameObject tank1PawnPrefab;
+    public GameObject tank2PawnPrefab;
 }
